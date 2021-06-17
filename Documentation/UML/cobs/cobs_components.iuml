@@ -1,0 +1,9 @@
+!$COBS_MODULE = "v2"
+
+!if %not(%variable_exists("$COMPONENTS"))
+    !include ../Templates/Components2.cuml
+!endif
+
+$module(cobs) {
+    $class(COBS_Coder, tools_cobs_COBS_Coder)
+}

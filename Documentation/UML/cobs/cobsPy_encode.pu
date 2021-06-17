@@ -1,0 +1,52 @@
+@startuml cobsPy_encode
+
+title Activity Diagram of the COBS Encoding Algorithm (Python Implementation)
+
+start
+
+:<b>Data</b> - byte array or byte-string<
+
+if (<b>Data</b> is byte string OR byte array?) then (True)
+
+    :initiate <b>Result</b> as an empty byte array;
+
+    :split <b>Data</b> into a list of byte-strings by '\x0' (zero) -> <b>TempList</b>;
+
+    while (for each <b>SubString</b> in <b>TempList</b>)
+        if (<b>SubString</b> is empty) then (True)
+            :append 1 to <b>Result</b> ;
+        elseif (length of <b>SubString</b> < 255) then (True)
+            :append length(SubString) + 1 to <b>Result</b> ;
+            
+            :extend <b>Result</b> with <b>SubString</b> byte-string;
+            
+            if (<b>SubString</b> is not the last in the <b>TempList</b>) then (True)
+                :append 1 to <b>Result</b> ;
+            endif
+        else (False)
+            :split <b>SubString</b> into <b>SubList</b> - list of sub- byte-strings
+            of the length of 254 bytes exactly + the last one of the
+            remaining 0 < length < 255;
+            
+            while (for each <b>SubSubString</b> in <b>SubList</b>)
+                :append length(SubSubString) + 1 to <b>Result</b> ;
+                
+                :extend <b>Result</b> with <b>SubSubString</b> sub- byte-string;
+            end while
+            
+            if (last <b>SubSubString</b> is 254 characters long AND\n<b>SubString</b> is not the last in the <b>TempList</b>) then (True)
+                :append 1 to <b>Result</b> ;
+            endif
+        endif
+    end while
+
+    :convert <b>Result</b> into a byte-string and return>
+
+    stop
+else (False)
+    :raise UT_TypeError exception;
+
+    stop
+endif
+
+@enduml

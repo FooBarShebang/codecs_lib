@@ -1,0 +1,15 @@
+@startuml codecs_lib_components
+
+!if %not(%variable_exists("$COMPONENTS"))
+    !include ./Templates/Components2.cuml
+!endif
+
+title Components Diagram of the Library codecs_lib
+
+$library(codecs_lib) {
+    !if $is_not_defined("$COBS_MODULE")
+        !include ./cobs/cobs_components.iuml
+    !endif
+}
+
+@enduml

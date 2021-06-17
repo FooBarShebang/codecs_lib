@@ -1,0 +1,50 @@
+@startuml cobsPy_decode
+
+title Activity Diagram of the COBS Decoding Algorithm (Python Implementation)
+
+start
+
+:<b>Data</b> - byte array or byte-string<
+
+if (<b>Data</b> is byte string OR byte array?) then (True)
+
+    :strip <b>Data</b> of the leading and tailing b'\x00' characters;
+
+    :convert remaining <b>Data</b> into a byte array <b>Buffer</b> ;
+
+    if (<b>Buffer</b> contains zeroes?) then (Yes)
+        :raise UT_ValueError exception;
+        
+        stop 
+    else (No)
+        :initiate <b>Result</b> as an empty byte array;
+        
+        :<b>Position</b> := 0;
+        
+        while (<b>Position</b> < length of <b>Buffer</b> )
+            :read <b>Buffer[Position]</b> -> <b>Code</b>;
+            
+            :<b>Position</b>++;
+            
+            if (<b>Code</b> > 1) then (True)
+                :extend <b>Result</b> with the slice <b>Buffer[Position : Position+Code-1]</b> ;
+                
+                :<b>Position</b> += <b>Code</b> - 1;
+            endif
+            
+            if ((<b>Code</b> < 255) AND (<b>Position</b> < length of <b>Buffer</b>)) then (True)
+                :append 0 to <b>Result</b> ;
+            endif
+        end while
+        
+        :convert <b>Result</b> into a byte-string and return>
+        
+        stop
+    endif
+else (False)
+    :raise UT_TypeError exception;
+
+    stop
+endif
+
+@enduml

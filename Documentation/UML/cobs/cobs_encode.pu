@@ -1,0 +1,66 @@
+@startuml cobs_encode
+
+title Activity Diagram of the COBS Encoding Algorithm (NodeJS Implementation)
+
+start
+
+:<b>Buffer</b> - byte array
+<b>ZeroFrame</b> - boolean flag<
+
+:initialize a dynamic length byte array <b>Result</b> with a single 0 element;
+
+:<b>Position</b> := 0;
+
+:<b>FrameLength</b> := 1;
+
+if (<b>ZeroFrame</b> is True) then (Yes)
+    :append 0 into <b>Result</b> ;
+    
+    :<b>Position</b>++;
+endif
+
+:<b>Index</b> := 0;
+
+while (<b>Index</b> < length of <b>Buffer</b>)
+    if (<b>Buffer[Index]</b> is 0) then (True)
+        :Replace element <b>Result[Position]</b> := <b>FrameLength</b> ;
+        
+        :<b>Position</b> := length of <b>Result</b> ;
+        
+        :append 0 into <b>Result</b> ;
+        
+        :<b>FrameLength</b> := 1;
+    else (False)
+        :append <b>Buffer[Index]</b> into <b>Result</b> ;
+        
+        :<b>FrameLength</b>++;
+        
+        if (<b>FrameLength</b> == 255) then (True)
+            :Replace element <b>Result[Position]</b> := <b>FrameLength</b> ;
+            
+            :<b>Position</b> := length of <b>Result</b> ;
+            
+            :append 0 into <b>Result</b> ;
+            
+            :<b>FrameLength</b> := 1;
+        endif
+    endif
+    
+    :<b>Index</b>++;
+end while
+
+:Replace element <b>Result[Position]</b> := <b>FrameLength</b> ;
+
+:<b>Position</b> := length of <b>Result</b> ;
+
+:<b>FrameLength</b> := 1;
+
+if (<b>ZeroFrame</b> is True) then (Yes)
+    :append 0 into <b>Result</b> ;
+endif
+
+:return <b>Result</b> >
+
+stop
+
+@enduml

@@ -1,0 +1,35 @@
+@startuml cobs_decode
+
+title Activity Diagram of the COBS Decoding Algorithm (NodeJS implementation)
+
+start
+
+:<b>Buffer</b> - byte array<
+
+:initialize an empty dynamic length byte array <b>Result</b> ;
+
+:<b>Index</b> := 0;
+
+while (<b>Index</b> < length of <b>Buffer</b>)
+    :<b>FrameLength</b> := <b>Buffer[Index]</b> ;
+    
+    :<b>Index</b>++;
+    
+    :<b>Secondary</b> := 1;
+    
+    while (<b>Secondary</b> < <b>FrameLength</b>)
+        :append <b>Buffer[Index]</b> into <b>Result</b> ;
+        
+        :<b>Index</b>++;
+    end while
+    
+    if ((<b>FrameLength</b> < 255) AND (<b>Index</b> < length of <b>Buffer</b>)) then (True)
+        :append 0 into <b>Result</b> ;
+    endif
+end while
+
+:return <b>Result</b> >
+
+stop
+
+@enduml
