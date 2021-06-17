@@ -34,7 +34,7 @@ from codecs_lib.cobs import COBS_Coder
 
 #constants
 
-TEST_BYTE_STRING = b''.join([bytes(i) for i in range(1, 255)])
+TEST_BYTE_STRING = bytes(bytearray(i for i in range(1, 255)))
 # b'\x01\x02...\xfd\xfe'
 
 #classes

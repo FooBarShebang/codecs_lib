@@ -45,7 +45,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Test steps:** Pass each of the original example byte strings into the encoding method and compare the returned byte string with the expected encoded counter part. Each time the string must be equal. **N.B.** implemented as a test case in the test suit module codecs_lib.tests.ut001_cobs.py
 
-**Test result:** PASS/FAIL
+**Test result:** PASS
 
 ---
 
@@ -61,7 +61,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Test steps:** Pass each of the encoded example byte strings into the decoding method and compare the returned byte string with the corresponding original counter part. Each time the string must be equal. **N.B.** implemented as a test case in the test suit module codecs_lib.tests.ut001_cobs.py
 
-**Test result:** PASS/FAIL
+**Test result:** PASS
 
 ---
 
@@ -77,7 +77,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Test steps:** For each of the proper test examples taken from the algorithm description add an arbitrary but not zero amount (1+) of the leading and tailing characters. Pass the resulting strings to the decoding method. Compare the results with the expected original counterparts. Repeat several times with each encoded - original pair of the examples. **N.B.** implemented as a test case in the test suit module codecs_lib.tests.ut001_cobs.py.
 
-**Test result:** PASS/FAIL
+**Test result:** PASS
 
 ---
 
@@ -93,7 +93,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Test steps:** Pass different data types, including Unicode strings, but excepting **bytearray** or **bytestring** instances in the both methods / functions. Each time the **TypeError** or its sub-class must be raised. **N.B.** implemented as a test case in the test suit module codecs_lib.tests.ut001_cobs.py
 
-**Test result:** PASS/FAIL
+**Test result:** PASS
 
 ---
 
@@ -109,7 +109,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Test steps:** For each of the proper test examples taken from the algorithm description insert a zero character into an arbitrary position but not as the first of last character. Pass the resulting strings to the decoding method. Each time the **ValueError** or its sub-class must be raised. Repeat several times with each encoded - original pair of the examples. **N.B.** implemented as a test case in the test suit module codecs_lib.tests.ut001_cobs.py
 
-**Test result:** PASS/FAIL
+**Test result:** PASS
 
 ## Test definitions (Analysis)
 
@@ -125,7 +125,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Test steps:** Run the test suit module codecs_lib.tests.ut001_cobs.py
 
-**Test result:** PASS/FAIL
+**Test result:** PASS
 
 ## Traceability
 
@@ -133,13 +133,13 @@ For traceability the relation between tests and requirements is summarized in th
 
 | **Requirement ID** | **Covered in test(s)** | **Verified \[YES/NO\]**) |
 | :----------------- | :--------------------- | :----------------------- |
-| REQ-FUN-100        | TEST-A-100             | NO                       |
-| REQ-FUN-101        | TEST-T-100, TEST-T-101 | NO                       |
-| REQ-FUN-110        | TEST-T-100             | NO                       |
-| REQ-FUN-120        | TEST-T-101, TEST-T-120 | NO                       |
-| REQ-AWM-100        | TEST-T-102             | NO                       |
-| REQ-AWM-120        | TEST-T-121             | NO                       |
+| REQ-FUN-100        | TEST-A-100             | YES                      |
+| REQ-FUN-101        | TEST-T-100, TEST-T-101 | YES                      |
+| REQ-FUN-110        | TEST-T-100             | YES                      |
+| REQ-FUN-120        | TEST-T-101, TEST-T-120 | YES                      |
+| REQ-AWM-100        | TEST-T-102             | YES                      |
+| REQ-AWM-120        | TEST-T-121             | YES                      |
 
 | **Software ready for production \[YES/NO\]** | **Rationale**        |
 | :------------------------------------------: | :------------------- |
-| NO                                           | Under development    |
+| YES                                          | All tests are passed |
