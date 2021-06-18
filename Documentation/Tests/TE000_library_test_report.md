@@ -1,4 +1,4 @@
-# Test Report on the Library dpg_lib
+# Test Report on the Library codecs_lib
 
 ## Conventions
 
