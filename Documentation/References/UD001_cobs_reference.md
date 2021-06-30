@@ -6,7 +6,7 @@ This document provides reference documentation on the module **codecs_lib.cobs**
 
 ## Design and Functionality
 
-The communication over serial port with the CFR rev 1 and MFR devices is implemented in the binary mode using '\x00' (zero) characters as the package delimiters. Thus an arbitrary bytes sequence containg zeroes must be encoded before sending and decoded after sending such that the sent sequence itself does not contain zeroes, at least, un-escaped. The *C*onsistent *O*verhead *B*yte *S*tuffing encoding / decoding algorithm (COBS) allows reversible zeroes eliminiation without use of the escape sequences.
+The communication over serial port with the devices is often implemented in the binary mode using '\x00' (zero) characters as the package delimiters. Thus an arbitrary bytes sequence containg zeroes must be encoded before sending and decoded after sending such that the sent sequence itself does not contain zeroes, at least, un-escaped. The *C*onsistent *O*verhead *B*yte *S*tuffing encoding / decoding algorithm (COBS) allows reversible zeroes eliminiation without use of the escape sequences.
 
 The *encoding* algorithm is [[1]](#References):
 
@@ -30,13 +30,13 @@ _**Examples**_:
 
 The *decoding* algorithm can be easier explained assuming the sequential byte-by-byte reading from a stream (e.g. a file):
 
-1. Read 1 byte, let its value be **N** (in the 1 to 255 range)
-    - if **N** is 1 then append zero (0) to the output sequence
-    - otherwise (**N** > 1) read the next **N**-1 byte and append them to the output sequence
-2. Repeat step 1 until the end of the stream / file is reached of the packet delimiter '\x00' is encountered
-3. If the output sequence ends with zero (0, '\x00') - remove it
+* Read 1 byte, let its value be **N** (in the 1 to 255 range)
+  * if **N** is 1 then append zero (0) to the output sequence
+  * otherwise (**N** > 1) read the next **N**-1 byte and append them to the output sequence
+* Repeat step 1 until the end of the stream / file is reached of the packet delimiter '\x00' is encountered
+* If the output sequence ends with zero (0, '\x00') - remove it
 
-The majority of the commonly available implementations of this algorithm are based on the byte-by-byte conversion of the input, e.g. as in the Python library in the PyPI depository [[2]](#References) or in the NodeJS module *cobs* used by the NodeJS implementation of the *libhps* library, see figures below.
+The majority of the commonly available implementations of this algorithm are based on the byte-by-byte conversion of the input, e.g. as in the Python library in the PyPI depository [[2]](#References) or in the NodeJS module *cobs* used by the NodeJS implementation, see figures below.
 
 ![NodeJS cobs encoding](../UML/cobs/cobs_encode.png)
 
@@ -49,7 +49,7 @@ Thus the *functional requirements* for the module are:
 * The module should implement the strict COBS encoding and decoding using Python programming language without concerns for the package delimiters
 * The encoder should not add the package delimiters to the encoded data, when required the delimiter will be added by another piece of software
 * The decoder should ignore the leading and trailing package delimiters
-* Both the encoder and decoder should accept a byte-string as the input and return a byte-string
+* Both the encoder and decoder should accept a byte-string or bytes array as the input and return a byte-string
 
 The complete requirements list can be found in [RE001](../Requirements/RE001_cobs_requirements.md) document.
 
@@ -65,7 +65,7 @@ The module implements a single class **COBS_Coder**, which has only two methods 
 
 ![Class diagram of the module](../UML/cobs/cobs_classes.png)
 
-Unlike the Python library in the PyPI depository [[2]](#References) or in the NodeJS module *cobs* used by the NodeJS implementation of the *libhps* library this implementation is based on the slice indexing and strings splitting.
+Unlike the Python library in the PyPI depository [[2]](#References) or in the NodeJS module *cobs* this implementation is based on the slice indexing and strings splitting.
 
 The **encode()** method uses splitting in order to produce a sequence of non-zero bytes sequences (it is possible for a sub-sequence to be of the zero length), and slicing to split long non-zero sequence (> 254 characters). For each slice of the non-zero length its length + 1 is palced into the resulting string first, followed by the slice itself. Unless the length of the sub-string is 254 characters, or it is the last sub-string in the initial data string, the '\x01' (one) character is placed after it. The zero length sub-strings are represented by the '\x01' character, which happend in the case of zero ('\x00') being the first of the last character in the intial string, or two or more consecutive zeroes in the intial string. The produced sub-strings are copied as blocks, not in the byte-per-byte manner. See figure below for the details.
 
@@ -87,7 +87,7 @@ Singleton-like class implementing Consistent Overhead Byte Stuffing (COBS) encod
 
 _**Class Methods**_
 
-**encode(bData)**
+**encode**(*bData*)
 
 *Signature*:
 
@@ -109,7 +109,7 @@ bytes OR bytearray -> bytes
 
 Encodes a byte string using COBS algorithm. Note that the frame delimiter b'\x00' is not added!
 
-**decode(bData)**
+**decode**(*bData*)
 
 *Signature*:
 

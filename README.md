@@ -1,6 +1,6 @@
 # codecs_lib
 
-Python 3 implementation of a number of encoding / decoding algorithms used with the AGE Reader devices.
+Python 3 implementation of a number of simple encoding / decoding algorithms mostly for scrambling rather than compression of the data.
 
 ## Installation
 

@@ -29,7 +29,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Title:** COBS codec
 
-**Description:** The library should provide an encoder / decoder based on the COBS algorithm, which is used in the communication with the CFR00101 / MFR00100 type devices.
+**Description:** The library should provide an encoder / decoder based on the COBS algorithm.
 
 **Verification Method:** A
 
@@ -39,7 +39,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Title:** Vigenere cipher codec
 
-**Description:** The library should provide an encoder / decoder based on the Vigenere cipher, which is used in for the user data back-up with the CFR00100c / CFR00100d type devices.
+**Description:** The library should provide an encoder / decoder based on the Vigenere cipher using an externally provided key.
 
 **Verification Method:** A
 
@@ -49,7 +49,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Title:** WH random generator codec
 
-**Description:** The library should provide an encoder / decoder based on the Wichmann and Hill pseudo-random numbers generator, which is used in the DCF file type format (AGE Reader, AGE Reader SU, AGE Reader CU, DiabSpot devices).
+**Description:** The library should provide an encoder / decoder based on the Wichmann and Hill pseudo-random numbers generator using an externally provided key as the seed.
 
 **Verification Method:** A
 
