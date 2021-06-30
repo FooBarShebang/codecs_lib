@@ -2,3 +2,4 @@
 
 * Entire library [RE000](./RE000_library_requirements.md)
 * Module *cobs* [RE001](./RE001_cobs_requirements.md)
+* Module *xor_scrambler* [RE004](./RE004_xor_scrambler_requirements.md)

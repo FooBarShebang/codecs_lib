@@ -102,7 +102,7 @@ class Test_COBS_Coder(unittest.TestCase):
         """
         Tests the correctness of the implementation of the decoding.
         
-        Test id TEST-T-100. Covers the requirements REQ-FUN-101 and REQ-FUN-110.
+        Test id TEST-T-101. Covers the requirements REQ-FUN-101 and REQ-FUN-120.
         
         Version 1.0.0.0
         """
@@ -111,15 +111,17 @@ class Test_COBS_Coder(unittest.TestCase):
             bsTest = self.TestClass.decode(bsSample)
             bsControl = self.lstDecoded[iIndex]
             self.assertEqual(bsTest, bsControl)
+            self.assertIsInstance(bsTest, bytes)
             #from bytearray
-            baTest = bytearray(bsTest)
-            self.assertEqual(baTest, bsControl)
+            bsTest = self.TestClass.decode(bytearray(bsSample))
+            self.assertEqual(bsTest, bsControl)
+            self.assertIsInstance(bsTest, bytes)
     
     def test_COBS_Coder_encode(self):
         """
         Tests the correctness of the implementation of the encoding.
         
-        Test id TEST-T-101. Covers the requirements REQ-FUN-101 and REQ-FUN-120.
+        Test id TEST-T-100. Covers the requirements REQ-FUN-101 and REQ-FUN-110.
         
         Version 1.0.0.0
         """
@@ -128,9 +130,11 @@ class Test_COBS_Coder(unittest.TestCase):
             bsTest = self.TestClass.encode(bsSample)
             bsControl = self.lstEncoded[iIndex]
             self.assertEqual(bsTest, bsControl)
+            self.assertIsInstance(bsTest, bytes)
             #from bytearray
-            baTest = bytearray(bsTest)
-            self.assertEqual(baTest, bsControl)
+            bsTest = self.TestClass.encode(bytearray(bsSample))
+            self.assertEqual(bsTest, bsControl)
+            self.assertIsInstance(bsTest, bytes)
     
     def test_COBS_Coder_decode_Strip(self):
         """
@@ -152,9 +156,11 @@ class Test_COBS_Coder(unittest.TestCase):
                 #from bytestring
                 bsTest = self.TestClass.decode(bsInput)
                 self.assertEqual(bsTest, bsControl)
+                self.assertIsInstance(bsTest, bytes)
                 #from bytearray
-                baTest = bytearray(bsTest)
-                self.assertEqual(baTest, bsControl)
+                bsTest = self.TestClass.decode(bytearray(bsInput))
+                self.assertEqual(bsTest, bsControl)
+                self.assertIsInstance(bsTest, bytes)
     
     def test_COBS_Coder_decode_Raises_ValueError(self):
         """

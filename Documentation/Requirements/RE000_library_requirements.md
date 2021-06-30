@@ -53,6 +53,16 @@ The verification method for a requirement is given by a single letter according 
 
 **Verification Method:** A
 
+---
+
+**Requirement ID:** REQ-FUN-003
+
+**Title:** Simple, no-key scrambler
+
+**Description:** The library should provide an encoder / decoder based on a reversible data scrambling without a key.
+
+**Verification Method:** A
+
 ## Interfaces
 
 **Requirement ID:** REQ-INT-000
