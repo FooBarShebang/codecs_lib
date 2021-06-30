@@ -103,10 +103,10 @@ class COBS_Coder:
             bstring -> bstring
         
         Args:
-            bsInput: bstring, byte-string to be encoded
+            bsInput: bytes or bytearray; data to be encoded
         
         Returns:
-            bstring: encoded byte-string
+            bytes: encoded byte-string
         
         Raises:
             UT_TypeError: input is neither byte-string nor bytes array
@@ -148,7 +148,7 @@ class COBS_Coder:
             bytes OR bytearray -> bytes
         
         Args:
-            bData: bytes OR bytearray; input as a byte-string or array
+            bData: bytes OR bytearray; data to be decoded
         
         Returns:
             bytes: decoded byte-string

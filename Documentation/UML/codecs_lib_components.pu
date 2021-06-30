@@ -10,6 +10,10 @@ $library(codecs_lib) {
     !if $is_not_defined("$COBS_MODULE")
         !include ./cobs/cobs_components.iuml
     !endif
+    
+    !if $is_not_defined("$XOR_MODULE")
+        !include ./xor_scrambler/xor_scrambler_components.iuml
+    !endif
 }
 
 @enduml

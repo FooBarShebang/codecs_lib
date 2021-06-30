@@ -125,7 +125,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Test steps:** Check / review the source code. Run the unit-test suits defined in the [ut004_xor_scrambler.py](../../tests/ut004_xor_scrambler.py) module. Report results in the [TE004](./TE004_xor_scrambler_test_report.md) document.
 
-**Test result:** PASS / FAIL
+**Test result:** PASS
 
 ## Tests definition (Demonstration)
 
@@ -168,7 +168,7 @@ For traceability the relation between tests and requirements is summarized in th
 | REQ-FUN-000        | TEST-A-000             | YES                      |
 | REQ-FUN-001        | TEST-A-001             | NO                       |
 | REQ-FUN-002        | TEST-A-002             | NO                       |
-| REQ-FUN-003        | TEST-A-003             | NO                       |
+| REQ-FUN-003        | TEST-A-003             | YES                      |
 | REQ-INT-000        | TEST-I-000             | NO                       |
 | REQ-IAR-000        | TEST-D-000             | NO                       |
 | REQ-IAR-001        | TEST-D-001             | NO                       |

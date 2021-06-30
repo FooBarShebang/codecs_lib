@@ -10,7 +10,7 @@ Classes:
 
 __version__ = "1.0.0.0"
 __date__ = "30-06-2021"
-__status__ = "Development"
+__status__ = "Production"
 
 #imports
 
@@ -62,12 +62,100 @@ class XOR_Coder:
     def encode(cls, Data: TByteString, *,
                     Encoding: Optional[str] = None) -> bytes:
         """
+        Encodes the input into a byte string using per byte XOR with 255. If the
+        input is a string and Encoding is not specified or None the UTF8 is
+        assumed, otherwise the specified codec is used, which must be registred
+        with Python.
+        
+        Signature:
+            bytes OR bytearray OR str\, *, str OR None\ -> bytes
+        
+        Args:
+            Data: bytes OR bytearray OR str; data to be encoded
+            Encoding: (keyword only) str OR None; name of the Unicode codec to
+                be used, None defaults to UTF8
+        
+        Returns:
+            bytes: encoded byte string
+        
+        Raises:
+            * UT_TypeError: Data is neither bytes nor bytearray nor string, OR
+                Encoding is neither a string nor None if Data is a string
+            * UT_ValueError: Encoding is not a registered, OR registered but
+                improper codec - only if Data is a string
+        
+        Version 1.0.0.0
         """
-        pass
+        if isinstance(Data, bytes):
+            baTemp = bytearray(Data)
+        elif isinstance(Data, bytearray):
+            baTemp = Data
+        elif isinstance(Data, str):
+            if Encoding is None:
+                strEncoding = 'utf-8'
+            elif not isinstance(Encoding, str):
+                raise UT_TypeError(Encoding, str, SkipFrames = 1)
+            else:
+                strEncoding = Encoding
+            try:
+                bsTemp = Data.encode(strEncoding)
+            except LookupError:
+                raise UT_ValueError(Encoding,
+                        'a registered Unicode codec', SkipFrames = 1) from None
+            except ValueError:
+                raise UT_ValueError(Encoding,
+                        'a suitable Unicode codec', SkipFrames = 1) from None
+            baTemp = bytearray(bsTemp)
+        else:
+            raise UT_TypeError(Data, (bytes, bytearray, str), SkipFrames = 1)
+        bsResult = bytes(Item ^ 255 for Item in baTemp)
+        return bsResult
     
     @classmethod
     def decode(cls, Data: TBytes, *,
                     Encoding: Optional[str] = None) -> TString:
         """
+        Decodes the input into a byte string using per byte XOR with 255. If the
+        Encoding is specified and not None it is used to decode the result into
+        a string; the codec must be registred with Python.
+        
+        Signature:
+            bytes OR bytearray\, *, str OR None\ -> bytes OR str
+        
+        Args:
+            Data: bytes OR bytearray OR str; data to be encoded
+            Encoding: (keyword only) str OR None; name of the Unicode codec to
+                be used, default value None prevents bytes -> str conversion
+        
+        Returns:
+            * bytes: decoded byte string, Encoding is not specified or None
+            * str: decoded byte string additionaly decoded into a Unicode, only
+                if a valid string Encoding value is provided
+        
+        Raises:
+            * UT_TypeError: Data is neither bytes nor bytearray, OR Encoding is
+                not a string
+            * UT_ValueError: Encoding is not a registered, OR registered but
+                improper codec
+        
+        Version 1.0.0.0
         """
-        pass
+        if isinstance(Data, bytes):
+            baTemp = bytearray(Data)
+        elif isinstance(Data, bytearray):
+            baTemp = Data
+        else:
+            raise UT_TypeError(Data, (bytes, bytearray), SkipFrames = 1)
+        Result = bytes(Item ^ 255 for Item in baTemp)
+        if not (Encoding is None):
+            if not isinstance(Encoding, str):
+                raise UT_TypeError(Encoding, str, SkipFrames = 1)
+            try:
+                Result = Result.decode(Encoding)
+            except LookupError:
+                raise UT_ValueError(Encoding,
+                        'a registered Unicode codec', SkipFrames = 1) from None
+            except ValueError:
+                raise UT_ValueError(Encoding,
+                        'a suitable Unicode codec', SkipFrames = 1) from None
+        return Result

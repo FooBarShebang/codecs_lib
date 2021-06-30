@@ -52,10 +52,11 @@ Prepare a set of simple byte string examples with the length from 1 to 6 bytes, 
 * Pass each of the original example simple byte strings into the encoding method and compare the returned byte string with the expected encoded counter part
 * Convert into a bytes array and pass each of the original example simple byte strings into the encoding method and compare the returned byte string with the expected encoded counter part
 * Pass the complex string into the encoder together with the keyword argument specifying the codec and compare the returned byte string with the expected encoded counter part for that codec.
+* Pass the complex string into the encoder without Encoding argument and with it set to None, compare the returned results with the expected value for the UTF8 codec.
 
 Each time the byte strings must be equal. **N.B.** implemented as a test case in the test suit module codecs_lib.tests.ut004_xor_scrambler.py
 
-**Test result:** PASS / FAIL
+**Test result:** PASS
 
 ---
 
@@ -78,7 +79,7 @@ Each time the byte strings must be equal. **N.B.** implemented as a test case in
 
 Each time the byte strings must be equal. **N.B.** implemented as a test case in the test suit module codecs_lib.tests.ut004_xor_scrambler.py
 
-**Test result:** PASS / FAIL
+**Test result:** PASS
 
 ---
 
@@ -101,7 +102,7 @@ Each time the byte strings must be equal. **N.B.** implemented as a test case in
 
 Each time the **TypeError** or its sub-class must be raised. **N.B.** implemented as a test case in the test suit module codecs_lib.tests.ut004_xor_scrambler.py
 
-**Test result:** PASS / FAIL
+**Test result:** PASS
 
 ---
 
@@ -124,7 +125,7 @@ Each time the **TypeError** or its sub-class must be raised. **N.B.** implemente
 
 Each time the **ValueError** or its sub-class must be raised. **N.B.** implemented as a test case in the test suit module codecs_lib.tests.ut004_xor_scrambler.py
 
-**Test result:** PASS / FAIL
+**Test result:** PASS
 
 ## Test definitions (Analysis)
 
@@ -140,7 +141,7 @@ Each time the **ValueError** or its sub-class must be raised. **N.B.** implement
 
 **Test steps:** Run the test suit module codecs_lib.tests.ut004_xor_scrambler.py
 
-**Test result:** PASS / FAIL
+**Test result:** PASS
 
 ## Traceability
 
@@ -148,13 +149,13 @@ For traceability the relation between tests and requirements is summarized in th
 
 | **Requirement ID** | **Covered in test(s)** | **Verified \[YES/NO\]**) |
 | :----------------- | :--------------------- | :----------------------- |
-| REQ-FUN-400        | TEST-A-400             | NO                       |
-| REQ-FUN-401        | TEST-T-400, TEST-T-401 | NO                       |
-| REQ-FUN-410        | TEST-T-400             | NO                       |
-| REQ-FUN-420        | TEST-T-401             | NO                       |
-| REQ-AWM-400        | TEST-T-402             | NO                       |
-| REQ-AWM-401        | TEST-T-403             | NO                       |
+| REQ-FUN-400        | TEST-A-400             | YES                      |
+| REQ-FUN-401        | TEST-T-400, TEST-T-401 | YES                      |
+| REQ-FUN-410        | TEST-T-400             | YES                      |
+| REQ-FUN-420        | TEST-T-401             | YES                      |
+| REQ-AWM-400        | TEST-T-402             | YES                      |
+| REQ-AWM-401        | TEST-T-403             | YES                      |
 
 | **Software ready for production \[YES/NO\]** | **Rationale**        |
 | :------------------------------------------: | :------------------- |
-| NO                                           | Under development    |
+| YES                                          | All tests are passed |

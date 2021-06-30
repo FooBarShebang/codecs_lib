@@ -67,7 +67,7 @@ class Test_XOR_Coder(unittest.TestCase):
         cls.ComplexOriginal = 'anton\u2600антон'
         cls.ComplexEncoded = {
             'utf_8' : b''.join([b'\x9e\x91\x8b\x90\x91',
-                                b'\x1d\x67\x76',
+                                b'\x1d\x67\x7f',
                                 b'\x2f\x4f\x2f\x42\x2e\x7d\x2f\x41\x2f\x42']),
             'utf_16_le' : b''.join([b'\x9e\xff\x91\xff\x8b\xff\x90\xff\x91\xff',
                                 b'\xff\xd9',
@@ -105,6 +105,13 @@ class Test_XOR_Coder(unittest.TestCase):
                                                         Encoding = strEncoding)
             self.assertEqual(bsTest, bsExpected)
             self.assertIsInstance(bsTest, bytes)
+        bsExpected = self.ComplexEncoded['utf_8']
+        bsTest = self.TestClass.encode(self.ComplexOriginal)
+        self.assertEqual(bsTest, bsExpected)
+        self.assertIsInstance(bsTest, bytes)
+        bsTest = self.TestClass.encode(self.ComplexOriginal, Encoding = None)
+        self.assertEqual(bsTest, bsExpected)
+        self.assertIsInstance(bsTest, bytes)
     
     def test_XOR_Coder_decode(self):
         """
