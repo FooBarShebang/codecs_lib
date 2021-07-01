@@ -4,6 +4,10 @@
 
 This document provides reference documentation on the module **codecs_lib.cobs**, which implements the Consistent Overhead Byte Stuffing encoding / decoding algorithm [[1-3]](#References). Intended functionality of the module, design and implementation details as well as API reference are provided.
 
+Covered functional components:
+
+* Class **COBS_Coder**
+
 ## Design and Functionality
 
 The communication over serial port with the devices is often implemented in the binary mode using '\x00' (zero) characters as the package delimiters. Thus an arbitrary bytes sequence containg zeroes must be encoded before sending and decoded after sending such that the sent sequence itself does not contain zeroes, at least, un-escaped. The *C*onsistent *O*verhead *B*yte *S*tuffing encoding / decoding algorithm (COBS) allows reversible zeroes eliminiation without use of the escape sequences.

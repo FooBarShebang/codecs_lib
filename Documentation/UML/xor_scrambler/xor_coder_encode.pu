@@ -1,0 +1,42 @@
+@startuml xor_coder_encode
+
+title Activity Diagram of the Method codecs_lib.xor_scrambler.XOR_Coder.encode()
+
+:<i>Data</i> - byte string, bytes array OR string
+<i>Encoding</i> - optional, string <
+
+start
+
+if (<i>Data</i> is bytes array?) then (Yes)
+    :Copy <i>Data</i> to <i>Buffer</i> ;
+elseif (<i>Data</i> is byte string?) then (Yes)
+    :Covert <i>Data</i> into a byte-array\nand store it in <i>Buffer</i>;
+elseif (<i>Data</i> is a string?) then (Yes)
+    if (<i>Encoding</i> is provided?) then (True)
+        if (<i>Encoding</i> is a proper codec?) the (Yes)
+            :encode <i>Data</i> into byte-string\nusing this codec;
+        else (No)
+            :raise exception;
+    
+            end
+        endif
+    else (False)
+        :encode <i>Data</i> into byte-string\nusing UTF-8 codec;
+    endif
+    
+    :Covert the produced byte-string into a byte-array and store it in <i>Buffer</i>;
+else (other type)
+    :raise exception;
+    
+    end
+endif
+
+:Apply per-byte bit-wise XOR with 0xFF to the <i>Buffer</i> ;
+
+:Convert the result into a byte-string <i>Result</i> ;
+
+:return the <i>Result</i> byte-string>
+
+stop
+
+@enduml

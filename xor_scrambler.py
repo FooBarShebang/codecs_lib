@@ -123,7 +123,7 @@ class XOR_Coder:
             bytes OR bytearray\, *, str OR None\ -> bytes OR str
         
         Args:
-            Data: bytes OR bytearray OR str; data to be encoded
+            Data: bytes OR bytearray; data to be decoded
             Encoding: (keyword only) str OR None; name of the Unicode codec to
                 be used, default value None prevents bytes -> str conversion
         
@@ -134,7 +134,7 @@ class XOR_Coder:
         
         Raises:
             * UT_TypeError: Data is neither bytes nor bytearray, OR Encoding is
-                not a string
+                not a string nor None
             * UT_ValueError: Encoding is not a registered, OR registered but
                 improper codec
         
