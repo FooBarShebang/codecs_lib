@@ -1,0 +1,12 @@
+!$VIGENERE_MODULE = "v2"
+
+!if %not(%variable_exists("$COMPONENTS"))
+    !include ../Templates/Components2.cuml
+!endif
+
+$module(vigenere) {
+    $class(CircularList)
+    $class(VigenereCoder)
+
+    VigenereCoder o-- "1" CircularList
+}

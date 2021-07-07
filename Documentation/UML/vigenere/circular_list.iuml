@@ -1,0 +1,17 @@
+!$CIRCULAR_LIST = "v2"
+
+!if %not(%variable_exists("$CLASSES"))
+    !include ../Templates/Classes2.cuml
+!endif
+
+class CircularList {
+    ..Private fields..
+    - _iCounter : int = 0
+    - {field} _seqData : seq(type A) = None
+    __
+    __init__(seqData = None): /seq(type A)/ -> None
+    ..Public methods..
+    setContent(seqData): seq(type A) -> None
+    resetCounter(): None -> None
+    getElement() : None -> type A
+}

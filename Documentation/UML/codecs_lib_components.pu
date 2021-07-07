@@ -14,6 +14,12 @@ $library(codecs_lib) {
     !if $is_not_defined("$XOR_MODULE")
         !include ./xor_scrambler/xor_scrambler_components.iuml
     !endif
+
+    !if $is_not_defined("$VIGENERE_MODULE")
+        !include ./vigenere/vigenere_components.iuml
+    !endif
+
+    xor_scrambler -[hidden]- cobs
 }
 
 @enduml
