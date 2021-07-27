@@ -15,7 +15,7 @@ Classes:
 """
 
 __version__ = "1.0.0.0"
-__date__ = "07-07-2021"
+__date__ = "26-07-2021"
 __status__ = "Development"
 
 #imports
@@ -39,6 +39,12 @@ if not (ROOT_FOLDER in sys.path):
 
 from introspection_lib.base_exceptions import UT_TypeError, UT_ValueError
 from introspection_lib.base_exceptions import UT_Exception
+
+#+ types
+
+T_BYTES = Union[bytes, bytearray]
+
+T_PASSWORD = Union[bytes, bytearray, str]
 
 #classes
 
@@ -153,5 +159,162 @@ class CircularList:
 
 class VigenereCoder:
     """
+    Implementation of a codec based on the extended (mod 256) Vigenere
+    substituion algorithm using cyclic pass-phrase. The pass-phrase can be set
+    during instantiation or later using the dedicated method as a bytestring,
+    bytes array or a string (Unicode), in the last case the string is
+    automatically converted into a bytestring using UTF-8 codec. The pass-phrase
+    must be set before the first encoding or decoding attempt.
+
+    The internal index for the cyclic pass-phrase is never implicitely reset.
+    Use the dedicated method explicitely or (re-) set the pass-phrase to reset
+    the internal index. With this approach the codec is appropriate for the
+    continuous data feed, e.g. for an input stream.
+
+    Methods:
+        setPassword(Password):
+            str OR bytes OR bytearray -> None
+        resetIndex():
+            None -> None
+        encode(Data, *, Codec):
+            str/, *, str OR None/ -> bytes
+        decode(Data, *, Codec):
+            bytes OR bytearray/, *, str OR None/ -> str
+    
+    Version 1.0.0.0
     """
-    pass
+    
+    #special methods
+
+    def __init__(self, Password: Optional[T_PASSWORD] = None) -> None:
+        """
+        Initializer. If the optional Password argument is passed (and not None)
+        the pass-phrase is also set. The passed string is converted into a
+        bytestring using UTF-8 codec.
+
+        Signature:
+            /str OR bytes OR bytearray OR None/-> None
+        
+        Args:
+            Password: (optional) str OR bytes OR bytearray OR None; pass-phrase
+                to be set, unless None value (default) is passed, in which case
+                the pass-phrase is not set.
+        
+        Raises:
+            UT_TypeError: the passed argument is neither string, nor bytes
+                array, nor bytestring, nor None
+        
+        Version 1.0.0.0
+        """
+        self._objCodec = None
+    
+    #'private' helper methods
+
+    def _checkPassword(self, Password: T_PASSWORD) -> None:
+        """
+        Helper method to check the validity of the type of the provided pass-
+        phrase. Raises a custom version of TypeError if the check fails.
+
+        Signature:
+            str OR bytes OR bytearray -> None
+        
+        Args:
+            Password: str OR bytes OR bytearray; pass-phrase to be checked
+        
+        Raises:
+            UT_TypeError: the passed argument is neither string, nor bytes
+                array, nor bytestring
+        
+        Version 1.0.0.0
+        """
+        pass
+
+    #public API
+
+    def setPassword(self, Password: T_PASSWORD) -> None:
+        """
+        Method to set the pass-phrase to be used in encoding and decoding. The
+        passed string is converted into a bytestring using UTF-8 codec.
+
+        Signature:
+            str OR bytes OR bytearray -> None
+        
+        Args:
+            Password: str OR bytes OR bytearray; pass-phrase to be checked
+        
+        Raises:
+            UT_TypeError: the passed argument is neither string, nor bytes
+                array, nor bytestring
+        
+        Version 1.0.0.0
+        """
+        pass
+
+    def resetIndex(self) -> None:
+        """
+        Method to reset the internal index to the beginning of the pass-phrase.
+
+        Signature:
+            None -> None
+        
+        Version 1.0.0.0
+        """
+        pass
+
+    def encode(self, Data: str, *, Codec: Optional[str] = None) -> bytes:
+        """
+        Encodes the data passed as a string (Unicode) using the already set
+        pass-phrase and the specified Unicode codec (if not provided UTF-8 is
+        used by default).
+
+        Signature:
+            str/, *, str OR None/ -> bytes
+        
+        Args:
+            Data: str; data to be encoded
+            Codec: (keyword) str OR None; name of the Unicode codec to use for
+                the str -> bytes conversion, if None or not indicated - the
+                default UTF-8 is used
+        
+        Returns:
+            bytes: the Vignere encoded data
+        
+        Raises:
+            UT_TypeError: passed mandatory argument is not a string, OR the
+                passed keyword argument is not a string or None
+            UT_ValueError: the requested Unicode codec is not registered or
+                incompatible with the passed data string
+            UT_Exception: the pass-phrase is not set yet
+        
+        Version 1.0.0.0
+        """
+        pass
+
+    def decode(self, Data: T_BYTES, *, Codec: Optional[str] = None) -> str:
+        """
+        Decodes the data passed as a bytestring or bytes array using the already
+        set pass-phrase and the specified Unicode codec (if not provided UTF-8
+        is used by default).
+
+        Signature:
+            bytes OR bytearray /, *, str OR None/ -> str
+        
+        Args:
+            Data: bytes OR bytearray; data to be decoded
+            Codec: (keyword) str OR None; name of the Unicode codec to use for
+                the bytes -> str conversion, if None or not indicated - the
+                default UTF-8 is used
+        
+        Returns:
+            bytes: the Vignere encoded data
+        
+        Raises:
+            UT_TypeError: passed mandatory argument is not a bytestring or bytes
+                array, OR the passed keyword argument is not a string or None
+            UT_ValueError: the requested Unicode codec is not registered or
+                incompatible with the Vigenere decoded bytestring
+            UT_Exception: the pass-phrase is not set yet
+        
+        Version 1.0.0.0
+        """
+        pass
