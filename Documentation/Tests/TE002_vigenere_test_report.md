@@ -48,14 +48,19 @@ The verification method for a requirement is given by a single letter according 
 * Generate an arbitrary passphrase as a bytestring and convert it into a bytes array
 * Instantiate a tested **CircularList** class and set its content by that bytes array
 * Instantiate the Vignere codec and set its passphrase by that bytes array
-* Generate an arbitrary bytestring as a test value
+* Generate an arbitrary ASCII only bytestring as a test value
+* Encode the entire test bytestring and call *CircularList.getElement*() the same number of times 
 * For each byte *InByte* in the test bytestring do:
-  * Encode it with the codec instance *InByte* -> *OutByte*
+  * Encode it with the codec instance chr(*InByte*) -> *OutByte*
   * Get one (current) element stored in the **CircularList** instance as *Code*
-  * Check that *OutByte* = (*InByte* + *Code*) mod 256
-  * Decode *OutByte* with the codec instance into *NewByte*
+  * Check that ord(*OutByte*) = (*InByte* + *Code*) mod 256
+  * Append ord(*OutByte*) to a temporary bytes array *Buffer*
+* Reset the internal indexes in the **CircularList** instance and the Vignere codec
+* Encode the entire test bytestring and call *CircularList.getElement*() the same number of times 
+* For each byte *OutByte* in the *Buffer* do:
+  * Decode bytearray([*OutByte*]) with the codec instance into a string (1 character) *NewChar*
   * Get one (current) element stored in the **CircularList** instance as *Code1*
-  * Check that *NewByte* = (*OutByte* - *Code1*) mod 256
+  * Check that ord(*NewChar*) = (*OutByte* - *Code1*) mod 256
 * Reset the internal indexes in the both codec and **CircularList** instances and repeat the check above
 * Generate a new passphrase, set it into the both codec and **CircularList** instances and repeat the check above
 
@@ -258,19 +263,19 @@ For traceability the relation between tests and requirements is summarized in th
 
 | **Requirement ID** | **Covered in test(s)** | **Verified \[YES/NO\]**) |
 | :----------------- | :--------------------- | :----------------------- |
-| REQ-FUN-200        | TEST-A-200             | NO                      |
-| REQ-FUN-201        | TEST-A-200             | NO                      |
-| REQ-FUN-202        | TEST-T-200             | NO                      |
-| REQ-FUN-210        | TEST-T-200, TEST-T-201 | NO                      |
-| REQ-FUN-220        | TEST-T-200, TEST-T-201 | NO                      |
-| REQ-FUN-230        | TEST-T-201             | NO                      |
-| REQ-AWM-200        | TEST-T-202             | NO                      |
-| REQ-AWM-201        | TEST-T-203             | NO                      |
-| REQ-AWM-202        | TEST-T-204             | NO                      |
-| REQ-AWM-210        | TEST-T-210             | NO                      |
-| REQ-AWM-220        | TEST-T-220             | NO                      |
-| REQ-AWM-230        | TEST-T-230             | NO                      |
+| REQ-FUN-200        | TEST-A-200             | YES                      |
+| REQ-FUN-201        | TEST-A-200             | YES                      |
+| REQ-FUN-202        | TEST-T-200             | YES                      |
+| REQ-FUN-210        | TEST-T-200, TEST-T-201 | YES                      |
+| REQ-FUN-220        | TEST-T-200, TEST-T-201 | YES                      |
+| REQ-FUN-230        | TEST-T-201             | YES                      |
+| REQ-AWM-200        | TEST-T-202             | YES                      |
+| REQ-AWM-201        | TEST-T-203             | YES                      |
+| REQ-AWM-202        | TEST-T-204             | YES                      |
+| REQ-AWM-210        | TEST-T-210             | YES                      |
+| REQ-AWM-220        | TEST-T-220             | YES                      |
+| REQ-AWM-230        | TEST-T-230             | YES                      |
 
 | **Software ready for production \[YES/NO\]** | **Rationale**        |
 | :------------------------------------------: | :------------------- |
-| NO                                          | Under development |
+| YES                                          | All tests are passed |

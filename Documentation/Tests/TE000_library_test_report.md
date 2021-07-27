@@ -89,11 +89,11 @@ The verification method for a requirement is given by a single letter according 
 
 **Test goal:** The library implements the Vigenere cipher encoding / decoding propertly.
 
-**Expected result:** The funtionality is implemented and properly tested with respect to the requirements defined in the [RE002](../Requirements/RE002_???_requirements.md) document.
+**Expected result:** The funtionality is implemented and properly tested with respect to the requirements defined in the [RE002](../Requirements/RE002_vigenere_requirements.md) document.
 
-**Test steps:** Check / review the source code. Run the unit-test suits defined in the [ut002_???.py](../../tests/ut002_???.py) module. Report results in the [TE002](./TE002_???_test_report.md) document.
+**Test steps:** Check / review the source code. Run the unit-test suits defined in the [ut002_vigenere.py](../../tests/ut002_vigenere.py) module. Report results in the [TE002](./TE002_vigenere_test_report.md) document.
 
-**Test result:** PASS / FAIL
+**Test result:** PASS
 
 ---
 
@@ -166,7 +166,7 @@ For traceability the relation between tests and requirements is summarized in th
 | **Requirement ID** | **Covered in test(s)** | **Verified \[YES/NO\]**) |
 | :----------------- | :--------------------- | :----------------------- |
 | REQ-FUN-000        | TEST-A-000             | YES                      |
-| REQ-FUN-001        | TEST-A-001             | NO                       |
+| REQ-FUN-001        | TEST-A-001             | YES                      |
 | REQ-FUN-002        | TEST-A-002             | NO                       |
 | REQ-FUN-003        | TEST-A-003             | YES                      |
 | REQ-INT-000        | TEST-I-000             | NO                       |

@@ -7,8 +7,8 @@ Covered classes:
     VigenereCodec
 """
 
-__version__ = "1.0.0.0"
-__date__ = "26-07-2021"
+__version__ = "1.0.1.0"
+__date__ = "27-07-2021"
 __status__ = "Testing"
 
 #imports
@@ -193,7 +193,7 @@ class Test_VigenereCoder(unittest.TestCase):
     REQ-FUN-220, REQ-FUN-230, REQ-AWM-200, REQ-AWM-201, REQ-AWM-202,
     REQ-AWM-203, REQ-AWM-210, REQ-AWM-220 and REQ-AWM-230.
     
-    Version 1.0.0.0
+    Version 1.1.0.0
     """
     
     @classmethod
@@ -219,33 +219,50 @@ class Test_VigenereCoder(unittest.TestCase):
         Test id: TEST-T-200.
         Covers requirements: REQ-FUN-202, REQ-FUN-210 and REQ-FUN-220
 
-        Version 1.0.0.0
+        Version 2.0.0.0
         """
-        def InnerCheck(objTest, objC_List, InData):
+        #closure helper check function
+        def InnerCheck(objTest: VigenereCoder, objC_List: CircularList,
+                        InData: bytearray) -> None:
+            #let the indexes shift first
+            objTest.encode(InData.decode('utf_8'))
+            for _ in range(len(InData)):
+                objC_List.getElement()
+            baTemp = bytearray()
             for InByte in InData:
                 Code = objC_List.getElement()
-                OutByte = objTest.encode(bytes(InByte))
+                OutByte = objTest.encode(chr(InByte))
                 self.assertIsInstance(OutByte, bytes)
-                self.assertEqual(OutByte, (InByte + Code) % 256)
-                Decoded = objTest.decode(OutByte)
+                self.assertEqual(ord(OutByte), (InByte + Code) % 256)
+                baTemp.append(ord(OutByte))
+            #now for decoding
+            #+ reset both indexes
+            objTest.resetIndex()
+            objC_List.resetCounter()
+            #+let the indexes shift again by the same number of position
+            objTest.encode(InData.decode('utf_8'))
+            for _ in range(len(InData)):
+                objC_List.getElement()
+            for OutByte in baTemp:
+                Decoded = objTest.decode(bytearray([OutByte]))
                 self.assertIsInstance(Decoded, str)
-                NewByte = bytearray(Decoded, 'utf_8')[0]
+                NewByte = ord(Decoded)
                 Code1 = objC_List.getElement()
                 self.assertEqual(NewByte, (OutByte - Code1) % 256)
-
+        #test main body
         Password = bytearray(random.randint(0, 255)
                                         for _ in range(random.randint(5, 15)))
         objTest = self.TestClass(Password)
         objC_List = CircularList(Password)
-        InData = bytearray(random.randint(0, 255)
+        InData = bytearray(random.randint(0, 127)
                                     for _ in range(random.randint(50, 150)))
         InnerCheck(objTest, objC_List, InData)
-        InData = bytearray(random.randint(0, 255)
+        InData = bytearray(random.randint(0, 127)
                                     for _ in range(random.randint(50, 150)))
         objTest.resetIndex()
         objC_List.resetCounter()
         InnerCheck(objTest, objC_List, InData)
-        InData = bytearray(random.randint(0, 255)
+        InData = bytearray(random.randint(0, 127)
                                     for _ in range(random.randint(50, 150)))
         Password = bytearray(random.randint(0, 255)
                                         for _ in range(random.randint(5, 15)))
@@ -279,6 +296,7 @@ class Test_VigenereCoder(unittest.TestCase):
                 else:
                     OutData = objTest.encode(InData)
                 self.assertIsInstance(OutData, bytes)
+                objTest.resetIndex()
                 for Temp in [OutData, bytearray(OutData)]:
                     if not (Codec is None):
                         NewData = objTest.decode(Temp, Codec = Codec)
@@ -286,6 +304,7 @@ class Test_VigenereCoder(unittest.TestCase):
                         NewData = objTest.decode(Temp)
                     self.assertIsInstance(NewData, str)
                     self.assertEqual(NewData, InData)
+                    objTest.resetIndex()
         del objTest
     
     def test_ValueError(self):
@@ -331,8 +350,8 @@ class Test_VigenereCoder(unittest.TestCase):
     
     def test_NoPassword(self):
         """
-        Tests that TypeError sub-class is raised if the password is not set
-        before attempting to encode or decode.
+        Tests that an exception is raised if the password is not set before
+        attempting to encode or decode.
 
         Test id: TEST-T-204.
         Covers requirement: REQ-AWM-202
@@ -341,10 +360,9 @@ class Test_VigenereCoder(unittest.TestCase):
         """
         objTest = self.TestClass()
         InData = 'anton'
-        OutData = objTest.encode(InData)
-        with self.assertRaises(TypeError):
+        with self.assertRaises(Exception):
             objTest.encode(InData)
-        with self.assertRaises(TypeError):
+        with self.assertRaises(Exception):
             objTest.decode(OutData)
         del objTest
     
@@ -380,10 +398,10 @@ class Test_VigenereCoder(unittest.TestCase):
                 objTest.decode(Data)
         del objTest
     
-    def test_Password_Error(self):
+    def test_Password_TypeError(self):
         """
-        Tests that an exception is raised if the password passed into the 'set
-        passphrase' method is neither a bytestring nor a bytes array, nor a
+        Tests that TypeError sub-class is raised if the password passed into the
+        'set passphrase' method is neither a bytestring nor a bytes array, nor a
         string.
 
         Test id: TEST-T-230.
@@ -393,7 +411,7 @@ class Test_VigenereCoder(unittest.TestCase):
         """
         objTest = self.TestClass()
         for Password in self.BadTypes:
-            with self.assertRaises(Exception):
+            with self.assertRaises(TypeError):
                 objTest.setPassword(Password)
         del objTest
 

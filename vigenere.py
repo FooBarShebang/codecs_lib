@@ -15,8 +15,8 @@ Classes:
 """
 
 __version__ = "1.0.0.0"
-__date__ = "26-07-2021"
-__status__ = "Development"
+__date__ = "27-07-2021"
+__status__ = "Testing"
 
 #imports
 
@@ -207,6 +207,9 @@ class VigenereCoder:
         Version 1.0.0.0
         """
         self._objCodec = None
+        if not (Password is None):
+            self._checkPassword(Password)
+            self.setPassword(Password)
     
     #'private' helper methods
 
@@ -227,7 +230,8 @@ class VigenereCoder:
         
         Version 1.0.0.0
         """
-        pass
+        if not isinstance(Password, (str, bytes, bytearray)):
+            raise UT_TypeError(Password, (str, bytes, bytearray), SkipFrames= 2)
 
     #public API
 
@@ -248,7 +252,17 @@ class VigenereCoder:
         
         Version 1.0.0.0
         """
-        pass
+        self._checkPassword(Password)
+        if isinstance(Password, bytearray):
+            PassPhrase = copy.copy(Password)
+        elif isinstance(Password, bytes):
+            PassPhrase = bytearray(Password)
+        else:
+            PassPhrase = bytearray(Password, 'utf_8')
+        if self._objCodec is None:
+            self._objCodec = CircularList(PassPhrase)
+        else:
+            self._objCodec.setContent(PassPhrase)
 
     def resetIndex(self) -> None:
         """
@@ -259,7 +273,8 @@ class VigenereCoder:
         
         Version 1.0.0.0
         """
-        pass
+        if not (self._objCodec is None):
+            self._objCodec.resetCounter()
 
     def encode(self, Data: str, *, Codec: Optional[str] = None) -> bytes:
         """
@@ -288,7 +303,27 @@ class VigenereCoder:
         
         Version 1.0.0.0
         """
-        pass
+        if self._objCodec is None:
+            raise UT_Exception('Pass-phrase is not set yet', SkipFrames = 1)
+        if not isinstance(Data, str):
+            raise UT_TypeError(Data, str, SkipFrames = 1)
+        if Codec is None:
+            _Codec = 'utf_8'
+        else:
+            if not isinstance(Codec, str):
+                raise UT_TypeError(Codec, str, SkipFrames = 1)
+            _Codec = Codec
+        try:
+            InData = bytearray(Data, _Codec)
+        except LookupError:
+            raise UT_ValueError(_Codec,
+                        'a registered Unicode codec', SkipFrames = 1) from None
+        except ValueError:
+            raise UT_ValueError(_Codec,
+                        'a suitable Unicode codec', SkipFrames = 1) from None
+        OutData = bytes(bytearray((InByte + self._objCodec.getElement()) % 256 
+                                                        for InByte in InData))
+        return OutData
 
     def decode(self, Data: T_BYTES, *, Codec: Optional[str] = None) -> str:
         """
@@ -317,4 +352,27 @@ class VigenereCoder:
         
         Version 1.0.0.0
         """
-        pass
+        if self._objCodec is None:
+            raise UT_Exception('Pass-phrase is not set yet', SkipFrames = 1)
+        if not isinstance(Data, (bytes, bytearray)):
+            raise UT_TypeError(Data, (bytes, bytearray), SkipFrames = 1)
+        if Codec is None:
+            _Codec = 'utf_8'
+        else:
+            if not isinstance(Codec, str):
+                raise UT_TypeError(Codec, str, SkipFrames = 1)
+            _Codec = Codec
+        if isinstance(Data, bytearray):
+            InData = Data
+        else:
+            InData = bytearray(Data)
+        try:
+         OutData = bytearray((InByte - self._objCodec.getElement()) % 256 
+                                            for InByte in InData).decode(_Codec)
+        except LookupError:
+            raise UT_ValueError(_Codec,
+                        'a registered Unicode codec', SkipFrames = 1) from None
+        except ValueError:
+            raise UT_ValueError(_Codec,
+                        'a suitable Unicode codec', SkipFrames = 1) from None
+        return OutData
