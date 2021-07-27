@@ -356,14 +356,14 @@ class Test_VigenereCoder(unittest.TestCase):
         Test id: TEST-T-204.
         Covers requirement: REQ-AWM-202
 
-        Version 1.0.0.0
+        Version 2.0.0.0
         """
         objTest = self.TestClass()
         InData = 'anton'
         with self.assertRaises(Exception):
             objTest.encode(InData)
         with self.assertRaises(Exception):
-            objTest.decode(OutData)
+            objTest.decode(bytes(InData, 'utf_8'))
         del objTest
     
     def test_Encode_TypeError(self):
