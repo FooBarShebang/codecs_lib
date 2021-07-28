@@ -9,9 +9,9 @@ class CircularList {
     - _iCounter : int = 0
     - {field} _seqData : seq(type A) = None
     __
-    __init__(seqData = None): /seq(type A)/ -> None
+    + __init__(seqData = None): /seq(type A)/ -> None
     ..Public methods..
-    setContent(seqData): seq(type A) -> None
-    resetCounter(): None -> None
-    getElement() : None -> type A
+    + setContent(seqData): seq(type A) -> None
+    + resetCounter(): None -> None
+    + getElement() : None -> type A
 }

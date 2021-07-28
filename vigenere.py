@@ -103,7 +103,7 @@ class CircularList:
 
     def setContent(self, seqData: Sequence[Any]) -> None:
         """
-        Copies and strores the passed sequence content into the internal buffer
+        Copies and stores the passed sequence content into the internal buffer
         to be used as the data feed source.
 
         Signature:
@@ -244,7 +244,7 @@ class VigenereCoder:
             str OR bytes OR bytearray -> None
         
         Args:
-            Password: str OR bytes OR bytearray; pass-phrase to be checked
+            Password: str OR bytes OR bytearray; pass-phrase to be used
         
         Raises:
             UT_TypeError: the passed argument is neither string, nor bytes
@@ -341,7 +341,7 @@ class VigenereCoder:
                 default UTF-8 is used
         
         Returns:
-            bytes: the Vignere encoded data
+            str: the Vignere decoded data
         
         Raises:
             UT_TypeError: passed mandatory argument is not a bytestring or bytes

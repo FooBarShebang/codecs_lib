@@ -10,6 +10,11 @@ title Class Diagram of the Module codecs_lib.vigenere
     !include ./circular_list.iuml
 !endif
 
+!if $is_not_defined("$VIGENERE_CODER")
+    !include ./vigenere_coder.iuml
+!endif
+
+
 CircularList "1" -o VigenereCoder
 
 @enduml

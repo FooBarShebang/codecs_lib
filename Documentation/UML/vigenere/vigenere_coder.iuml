@@ -1,0 +1,19 @@
+!$VIGENERE_CODER = "v2"
+
+!if %not(%variable_exists("$CLASSES"))
+    !include ../Templates/Classes2.cuml
+!endif
+
+class VigenereCoder {
+    ..Private fields..
+    - _objCodec : CircularList = None
+    __
+    + __init__(Password = None): /str OR bytes OR bytarray OR None/ -> None
+    ..Public methods..
+    + setPassword(Password): str OR bytes OR bytarray -> None
+    + resetIndex(): None -> None
+    + encode(Data, *, Codec = None): str/, *, str/ -> bytes
+    + decode(Data, *, Codec = None): bytes OR bytearray/, *, str/ -> bytes
+    ..Private methods..
+    - _checkPassword(Password): str OR bytes OR bytarray -> None
+}
