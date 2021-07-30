@@ -255,7 +255,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Test steps:** Run the test suit module codecs_lib.tests.ut002_vigenere.py
 
-**Test result:** PASS / FAIL
+**Test result:** PASS
 
 ## Traceability
 

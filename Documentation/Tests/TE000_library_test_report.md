@@ -105,11 +105,11 @@ The verification method for a requirement is given by a single letter according 
 
 **Test goal:** The library implements the WH random generator encoding / decoding propertly.
 
-**Expected result:** The funtionality is implemented and properly tested with respect to the requirements defined in the [RE003](../Requirements/RE003_???_requirements.md) document.
+**Expected result:** The funtionality is implemented and properly tested with respect to the requirements defined in the [RE003](../Requirements/RE003_wichmann_hill_requirements.md) document.
 
-**Test steps:** Check / review the source code. Run the unit-test suits defined in the [ut003_???.py](../../tests/ut003_???.py) module. Report results in the [TE003](./TE003_???_test_report.md) document.
+**Test steps:** Check / review the source code. Run the unit-test suits defined in the [ut003_wichmann_hill.py](../../tests/ut003_wichmann_hill.py) module. Report results in the [TE003](./TE003_wichmann_hill_test_report.md) document.
 
-**Test result:** PASS / FAIL
+**Test result:** PASS
 
 ---
 
@@ -139,7 +139,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Expected result:** The dependencies check script (module) is present and it detects the missing dependencies, too old versions as well as improper or too old Python interpreter version. If this script does not detect problems, the library should operate as designed.
 
-**Test steps:** Install the library on different PCs using different OS. Run the check module [check_dependencies.py](../../check_dependencies.py). If missing dependencies or improper Python version is detected take the corrective actions. When the dependencies check has passed - try to work with the library, e.g. retrieve some data from the DPG. See also [tested_OS](./tested_OS.md).
+**Test steps:** Install the library on different PCs using different OS. Run the check module [check_dependencies.py](../../check_dependencies.py). If missing dependencies or improper Python version is detected take the corrective actions. When the dependencies check has passed - try to work with the library. See also [tested_OS](./tested_OS.md).
 
 **Test result:** PASS / FAIL
 
@@ -167,7 +167,7 @@ For traceability the relation between tests and requirements is summarized in th
 | :----------------- | :--------------------- | :----------------------- |
 | REQ-FUN-000        | TEST-A-000             | YES                      |
 | REQ-FUN-001        | TEST-A-001             | YES                      |
-| REQ-FUN-002        | TEST-A-002             | NO                       |
+| REQ-FUN-002        | TEST-A-002             | YES                      |
 | REQ-FUN-003        | TEST-A-003             | YES                      |
 | REQ-INT-000        | TEST-I-000             | NO                       |
 | REQ-IAR-000        | TEST-D-000             | NO                       |

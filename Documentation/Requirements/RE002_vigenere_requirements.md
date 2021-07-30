@@ -39,7 +39,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Title:** Module interface
 
-**Description:** The module should provide four class methods:
+**Description:** The module should provide four class instance methods:
 
 * For setting the passphrase
 * For instructing the codec to 'reset' the internal index to the start of the stored passphrase
@@ -54,7 +54,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Title:** Support for a continuous data feed.
 
-**Description:** Each encoded or decoded byte shoud shift the internal index within the byte-encoded passphrase, and that index shouldn't be reset to the beginning of the passphrase unless requested directly via the specific method call, or by setting a new passphrase. Thus, this codec can be used for the encoding and decoding of a continuous data feed, e.g. of an input stream.
+**Description:** Each encoded or decoded byte should shift the internal index within the byte-encoded passphrase, and that index shouldn't be reset to the beginning of the passphrase unless requested directly via the specific method call, or by setting a new passphrase. Thus, this codec can be used for the encoding and decoding of a continuous data feed, e.g. of an input stream.
 
 **Verification Method:** T
 
@@ -97,6 +97,8 @@ The verification method for a requirement is given by a single letter according 
 **Description:** A passed string (Unicode) argument cannot be encoded into a byte string using the specified codec, OR a decoded byte string / bytes array cannot be decoded into a string using the specificed codec, OR such codec is not registered. **ValueError** exception or its sub-class must be raised.
 
 **Verification Method:** T
+
+---
 
 **Requirement ID:** REQ-AWM-201
 

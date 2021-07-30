@@ -5,6 +5,7 @@
 * entire library - 00x
 * module *cobs* - 1xx
 * module *vigenere* - 2xx
+* module *wichmann_hill* - 3xx
 * module *xor_scrambler* - 4xx
 
 ## Requirements vs Tests Traceability
@@ -38,6 +39,15 @@
 | REQ-AWM-210        | TEST-T-210             | YES                      |
 | REQ-AWM-220        | TEST-T-220             | YES                      |
 | REQ-AWM-230        | TEST-T-230             | YES                      |
+| REQ-FUN-300        | TEST-A-300             | YES                      |
+| REQ-FUN-301        | TEST-A-300             | YES                      |
+| REQ-FUN-302        | TEST-T-300             | YES                      |
+| REQ-FUN-310        | TEST-T-310             | YES                      |
+| REQ-FUN-320        | TEST-T-320             | YES                      |
+| REQ-FUN-321        | TEST-T-321             | YES                      |
+| REQ-AWM-300        | TEST-T-311, TEST-T-322 | YES                      |
+| REQ-AWM-301        | TEST-T-312, TEST-T-323 | YES                      |
+| REQ-AWM-320        | TEST-T-324             | YES                      |
 | REQ-FUN-400        | TEST-A-400             | YES                      |
 | REQ-FUN-401        | TEST-T-400, TEST-T-401 | YES                      |
 | REQ-FUN-410        | TEST-T-400             | YES                      |
