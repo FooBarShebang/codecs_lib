@@ -64,7 +64,7 @@ Implement the Wichmann-Hill alogorithm in a spreadsheet and generate the expecte
 * Extend the *Initial* list with the just generated list twice
 * Encode the entire just generated list (passed as the argument) and extend the *Encoded* list with the result
 * Decode the entire generated list (passed as the argument) and extend the *Encoded* list with the result
-* Generate a random number using the generator class 2 * *N* times
+* Generate a random number using the generator class 2 \* *N* times
 * Generate a random floating point number and add it into *Initial* list
 * Encode that number and store the result in the *Encoded* list
 * Get a random number from the WH generator and calculate the expected encoded value

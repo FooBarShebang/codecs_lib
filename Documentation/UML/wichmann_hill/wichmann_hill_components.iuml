@@ -1,0 +1,12 @@
+!$WICHMANN_HILL_MODULE = "v2"
+
+!if %not(%variable_exists("$COMPONENTS"))
+    !include ../Templates/Components2.cuml
+!endif
+
+$module(wichmann_hill) {
+    $class(WH_Generator)
+    $class(WH_Coder)
+
+    WH_Coder o- "1" WH_Generator
+}

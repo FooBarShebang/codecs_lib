@@ -24,7 +24,7 @@ __status__ = "Production"
 import os
 import sys
 
-from typing import Union, Sequence, List
+from typing import Union, Sequence, List, Any
 import collections.abc as c_abc
 #import copy
 
@@ -37,7 +37,6 @@ if not (ROOT_FOLDER in sys.path):
     sys.path.append(ROOT_FOLDER)
 
 from introspection_lib.base_exceptions import UT_TypeError, UT_ValueError
-#from introspection_lib.base_exceptions import UT_Exception
 
 #types
 
@@ -121,12 +120,12 @@ class WH_Generator:
             /int > 0/, int > 0/, int > 0/// -> None
         
         Args:
-            s1: (optional) int > 0; the first seed number to be used as a seed,
-                defaults to 1
-            s2: (optional) int > 0; the second seed number to be used as a seed,
-                defaults to 1
-            s3: (optional) int > 0; the third seed number to be used as a seed,
-                defaults to 1
+            s1: (optional) int > 0; the first seed number to be used, defaults
+                to 1
+            s2: (optional) int > 0; the second seed number to be used, defaults
+                to 1
+            s3: (optional) int > 0; the third seed number to be used, defaults
+                to 1
         
         Raises:
             UT_TypeError: any of the passed arguments is not an integer
@@ -148,9 +147,9 @@ class WH_Generator:
             int > 0, int > 0, int > 0 -> None
         
         Args:
-            s1: int > 0; the first seed number to be used as a seed
-            s2: int > 0; the second seed number to be used as a seed
-            s3: int > 0; the third seed number to be used as a seed
+            s1: int > 0; the first seed number to be used
+            s2: int > 0; the second seed number to be used
+            s3: int > 0; the third seed number to be used
         
         Raises:
             UT_TypeError: any of the passed arguments is not an integer
@@ -207,19 +206,19 @@ class WH_Coder:
     def __init__(self, s1: int = 1, s2: int = 1, s3: int =1) -> None:
         """
         Initializer. Up to 3 positive integers can be supplied to be used as
-        the seed values in the internal WH generatir. By default the value 1 is
+        the seed values in the internal WH generator. By default the value 1 is
         used for each not supplied seed value.
 
         Sigature:
             /int > 0/, int > 0/, int > 0/// -> None
         
         Args:
-            s1: (optional) int > 0; the first seed number to be used as a seed,
-                defaults to 1
-            s2: (optional) int > 0; the second seed number to be used as a seed,
-                defaults to 1
-            s3: (optional) int > 0; the third seed number to be used as a seed,
-                defaults to 1
+            s1: (optional) int > 0; the first seed number to be used, defaults
+                to 1
+            s2: (optional) int > 0; the second seed number to be used, defaults
+                to 1
+            s3: (optional) int > 0; the third seed number to be used, defaults
+                to 1
         
         Raises:
             UT_TypeError: any of the passed arguments is not an integer
@@ -233,13 +232,13 @@ class WH_Coder:
     
     #private helper methods
 
-    def _checkIfSequence(self, Data: T_REAL_SEQUENCE) -> bool:
+    def _checkIfSequence(self, Data: Any) -> bool:
         """
         Private helper method to check if the passed data is a sequence, but not
         a Unicode or byte-string.
 
         Signature:
-            seq(int OR float) -> bool
+            type A -> bool
         
         Version 1.0.0.0
         """
@@ -248,13 +247,13 @@ class WH_Coder:
         bCond3 = not isinstance(Data, bytes)
         return bCond1 and bCond2 and bCond3
     
-    def _checkIfNumber(self, Data:T_REAL) -> bool:
+    def _checkIfNumber(self, Data: Any) -> bool:
         """
         Private helper method to check if the passed data is an integer or
         floating point number, but not a boolean value.
 
         Signature:
-            int OR float -> bool
+            type A -> bool
         
         Version 1.0.0.0
         """
@@ -273,9 +272,9 @@ class WH_Coder:
             int > 0, int > 0, int > 0 -> None
         
         Args:
-            s1: int > 0; the first seed number to be used as a seed
-            s2: int > 0; the second seed number to be used as a seed
-            s3: int > 0; the third seed number to be used as a seed
+            s1: int > 0; the first seed number to be used
+            s2: int > 0; the second seed number to be used
+            s3: int > 0; the third seed number to be used
         
         Raises:
             UT_TypeError: any of the passed arguments is not an integer
@@ -303,7 +302,7 @@ class WH_Coder:
             list(float): the encoded numbers - for the sequence input
         
         Raises:
-            UT_TypeError: the input is neither int, nor float nor sequence of
+            UT_TypeError: the input is neither int, nor float, nor sequence of
                 int or float
         
         Version 1.0.0.0
@@ -346,7 +345,7 @@ class WH_Coder:
             list(float): the decoded numbers - for the sequence input
         
         Raises:
-            UT_TypeError: the input is neither int, nor float nor sequence of
+            UT_TypeError: the input is neither int, nor float, nor sequence of
                 int or float
         """
         if self._checkIfSequence(Data):

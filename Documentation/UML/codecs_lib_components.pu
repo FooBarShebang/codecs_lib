@@ -20,6 +20,13 @@ $library(codecs_lib) {
     !endif
 
     xor_scrambler -[hidden]- cobs
+    
+    !if $is_not_defined("$WICHMANN_HILL_MODULE")
+        !include ./wichmann_hill/wichmann_hill_components.iuml
+    !endif
+    
+    cobs -[hidden]- wichmann_hill
+    vigenere -[hidden]-- wichmann_hill
 }
 
 @enduml

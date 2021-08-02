@@ -2,7 +2,7 @@
 
 title Activity Diagram of the Method codecs_lib.xor_scrambler.XOR_Coder.decode()
 
-:<i>Data</i> - byte string, bytes array OR string
+:<i>Data</i> - byte string OR bytes array
 <i>Encoding</i> - optional, string <
 
 start

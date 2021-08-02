@@ -1,4 +1,4 @@
-# Test Report on the Library codecs_lib
+# TE000 Test Report on the Library codecs_lib
 
 ## Conventions
 
@@ -45,7 +45,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Test steps:** Check / review the source code.
 
-**Test result:** PASS / FAIL
+**Test result:** PASS
 
 ---
 
@@ -61,7 +61,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Test steps:** Check / review the documentation provided with the library.
 
-**Test result:** PASS / FAIL
+**Test result:** PASS
 
 ## Tests definition (Analysis)
 
@@ -141,7 +141,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Test steps:** Install the library on different PCs using different OS. Run the check module [check_dependencies.py](../../check_dependencies.py). If missing dependencies or improper Python version is detected take the corrective actions. When the dependencies check has passed - try to work with the library. See also [tested_OS](./tested_OS.md).
 
-**Test result:** PASS / FAIL
+**Test result:** PASS
 
 ---
 
@@ -157,7 +157,7 @@ The verification method for a requirement is given by a single letter according 
 
 **Test steps:** Install the library and try to work with it on different PCs using different OS. Mark the tested OS + Python version in the [tested_OS.md](./tested_OS.md) document as well as the result of the test.
 
-**Test result:** PASS / FAIL
+**Test result:** PASS
 
 ## Traceability
 
@@ -169,12 +169,12 @@ For traceability the relation between tests and requirements is summarized in th
 | REQ-FUN-001        | TEST-A-001             | YES                      |
 | REQ-FUN-002        | TEST-A-002             | YES                      |
 | REQ-FUN-003        | TEST-A-003             | YES                      |
-| REQ-INT-000        | TEST-I-000             | NO                       |
-| REQ-IAR-000        | TEST-D-000             | NO                       |
-| REQ-IAR-001        | TEST-D-001             | NO                       |
-| REQ-IAR-002        | TEST-D-000             | NO                       |
-| REQ-UDR-000        | TEST-I-001             | NO                       |
+| REQ-INT-000        | TEST-I-000             | YES                      |
+| REQ-IAR-000        | TEST-D-000             | YES                      |
+| REQ-IAR-001        | TEST-D-001             | YES                      |
+| REQ-IAR-002        | TEST-D-000             | YES                      |
+| REQ-UDR-000        | TEST-I-001             | YES                      |
 
 | **Software ready for production \[YES/NO\]** | **Rationale**                 |
 | :------------------------------------------: | :---------------------------- |
-| NO                                           | Under development             |
+| YES                                          | All tests are passed          |
