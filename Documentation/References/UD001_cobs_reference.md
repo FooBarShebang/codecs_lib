@@ -14,23 +14,23 @@ The communication over serial port with the devices is often implemented in the 
 
 The *encoding* algorithm is [[1]](#References):
 
-* First append a zero byte, then break them into groups of either 254 non-zero bytes, or 0–253 non-zero bytes followed by a zero byte.
+* First append a zero byte to the tail, then break them into groups of either 254 non-zero bytes, or 0–253 non-zero bytes followed by a zero byte - thus the zero bytes serve as tail-delimiters of sub-sequences of non-zero bytes, which may be empty (zero length).
 * Encode each group by deleting the trailing zero byte (if any) and prepending the number of non-zero bytes, plus one. Thus, each encoded group is the same size as the original, except that 254 non-zero bytes are encoded into 255 bytes by prepending a byte of 255.
 * As a special exception, if a packet ends with a group of 254 non-zero bytes, it is not necessary to add the trailing zero byte.
 
-_**Examples**_:
+Here are *examples* of the original and COBS encoded byte sequences with the boundaries between the groups indicated by the hyphen / minus sign.
 
-| Unencoded data (hex)  | Encoded data (hex)          |
-| --------------------- | --------------------------- |
-| 00                    | 01 01                       |
-| 00 00                 | 01 01 01                    |
-| 11 22 00 33           | 03 11 22 02 33              |
-| 11 22 33 44           | 05 11 22 33 44              |
-| 11 00 00 00           | 02 11 01 01 01              |
-| 01 02 03 ... FD FE    | FF 01 02 03 ... FD FE       |
-| 00 01 02 03 ... FD FE | 01 FF 01 02 03 ... FD FE    |
-| 01 02 03 ... FD FE FF | FF 01 02 03 ... FD FE 02 FF |
-| 02 03 04 ... FE FF 00 | FF 02 03 04 ... FE FF 01 01 |
+| Original data (hex)   | Modified data (hex)      | Encoded data (hex)          |
+| --------------------- | ------------------------ | --------------------------- |
+| 00                    | 00-00                    | 01 01                       |
+| 00 00                 | 00-00-00                 | 01 01 01                    |
+| 11 22 00 33           | 11 22 00-33 00           | 03 11 22 02 33              |
+| 11 22 33 44           | 11 22 33 44 00           | 05 11 22 33 44              |
+| 11 00 00 00           | 11 00-00-00-00           | 02 11 01 01 01              |
+| 01 02 03 ... FD FE    | 01 02 03 ... FD FE       | FF 01 02 03 ... FD FE       |
+| 00 01 02 03 ... FD FE | 00-01 02 03 ... FD FE    | 01 FF 01 02 03 ... FD FE    |
+| 01 02 03 ... FD FE FF | 01 02 03 ... FD FE-FF 00 | FF 01 02 03 ... FD FE 02 FF |
+| 02 03 04 ... FE FF 00 | 02 03 04 ... FE FF-00-00 | FF 02 03 04 ... FE FF 01 01 |
 
 The *decoding* algorithm can be easier explained assuming the sequential byte-by-byte reading from a stream (e.g. a file):
 

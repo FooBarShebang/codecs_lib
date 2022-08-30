@@ -15,14 +15,10 @@ if (<b>Data</b> is byte string OR byte array?) then (True)
     while (for each <b>SubString</b> in <b>TempList</b>)
         if (<b>SubString</b> is empty) then (True)
             :append 1 to <b>Result</b> ;
-        elseif (length of <b>SubString</b> < 255) then (True)
+        elseif (length of <b>SubString</b> < 254) then (True)
             :append length(SubString) + 1 to <b>Result</b> ;
             
             :extend <b>Result</b> with <b>SubString</b> byte-string;
-            
-            if (<b>SubString</b> is not the last in the <b>TempList</b>) then (True)
-                :append 1 to <b>Result</b> ;
-            endif
         else (False)
             :split <b>SubString</b> into <b>SubList</b> - list of sub- byte-strings
             of the length of 254 bytes exactly + the last one of the
