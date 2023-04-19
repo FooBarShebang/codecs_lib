@@ -6,7 +6,7 @@
 
 class VigenereCoder {
     ..Private fields..
-    - _objCodec : CircularList = None
+    - _Codec : CircularList = None
     __
     + __init__(Password = None): /str OR bytes OR bytarray OR None/ -> None
     ..Public methods..

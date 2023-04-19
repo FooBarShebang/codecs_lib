@@ -40,7 +40,7 @@ The activity diagrams of the methods are shown below.
 
 Singleton-like class implementing per-byte XOR based scrambling and unscrambling. All methods are class methods, thus the instantiation is not required, although it is possible.
 
-_**Class Methods**_
+***Class Methods***
 
 **encode**(*Data*, \*, *Encoding* = None)
 

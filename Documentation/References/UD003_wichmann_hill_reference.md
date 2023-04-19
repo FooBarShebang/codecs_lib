@@ -76,7 +76,7 @@ The both *encode*() and *decode*() methods of this class are designed to accept 
 
 Implementation of a pseudo-random number generator in the range [0, 1) based on the modified Wichmann-Hill algorithm with strictly positive integer seeds at any time.
 
-_**Instantitation**_
+***Instantitation***
 
 **\_\_init\_\_**(*s1* = 1, *s2* = 1, *s3* = 1)
 
@@ -99,7 +99,7 @@ _**Instantitation**_
 
 Initializer. Up to 3 positive integers can be supplied to be used as the seed values. By default the value 1 is used for each not supplied seed value.
 
-_**Methods**_
+***Methods***
 
 **seed**(*s1*, *s2*, *s3*)
 
@@ -136,7 +136,7 @@ Updates the current seed values following the modified Wichmann-Hill algorithm, 
 
 Implementation of a coder / data scrambler based on the pseudo-random number generator in the range [0, 1) using the modified Wichmann-Hill algorithm - see **WH_Generator** class.
 
-_**Instantitation**_
+***Instantitation***
 
 **\_\_init\_\_**(*s1* = 1, *s2* = 1, *s3* = 1)
 
@@ -159,7 +159,7 @@ _**Instantitation**_
 
 Initializer. Up to 3 positive integers can be supplied to be used as the seed values in the internal WH generator. By default the value 1 is used for each not supplied seed value.
 
-_**Methods**_
+***Methods***
 
 **seedGenerator**(*s1*, *s2*, *s3*)
 

@@ -1,5 +1,9 @@
 # Release log of library codecs_lib
 
+## 2023-04-19 v1.0.1
+
+Cleaned up code.
+
 ## 2021-07-30 v1.0.0
 
 * Implemented and tested WH coder

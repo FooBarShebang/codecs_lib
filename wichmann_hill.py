@@ -13,8 +13,8 @@ Classes:
     WH_Coder
 """
 
-__version__ = "1.0.0.0"
-__date__ = "30-07-2021"
+__version__ = "1.0.0.1"
+__date__ = "19-04-2023"
 __status__ = "Production"
 
 #imports
@@ -67,29 +67,29 @@ def _CheckSeed(s1: int, s2: int, s3: int) -> None:
         UT_TypeError: any of the arguments is not an integer
         UT_ValueError: any of the arguments is a negative integer or zero
     
-    Version 1.0.0.0
+    Version 1.0.0.1
     """
     if (not isinstance(s1, int)) or isinstance(s1, bool):
-        objError = UT_TypeError(s1, int, SkipFrames = 2)
-        objError.args = ('{} - the first argument'.format(objError.args[0]), )
-        raise objError
+        Error = UT_TypeError(s1, int, SkipFrames = 2)
+        Error.appendMessage('- the first argument')
+        raise Error
     elif s1 < 1:
         raise UT_ValueError(s1, 'positive integer - the first argument',
-                            SkipFrames = 2)
+                                                                SkipFrames = 2)
     if (not isinstance(s2, int)) or isinstance(s2, bool):
-        objError = UT_TypeError(s2, int, SkipFrames = 2)
-        objError.args = ('{} - the second argument'.format(objError.args[0]), )
-        raise objError
+        Error = UT_TypeError(s2, int, SkipFrames = 2)
+        Error.appendMessage('- the second argument')
+        raise Error
     elif s2 < 1:
         raise UT_ValueError(s2, 'positive integer - the second argument',
-                            SkipFrames = 2)
+                                                                SkipFrames = 2)
     if (not isinstance(s3, int)) or isinstance(s3, bool):
-        objError = UT_TypeError(s3, int, SkipFrames = 2)
-        objError.args = ('{} - the third argument'.format(objError.args[0]), )
-        raise objError
+        Error = UT_TypeError(s3, int, SkipFrames = 2)
+        Error.appendMessage('- the third argument')
+        raise Error
     elif s3 < 1:
         raise UT_ValueError(s3, 'positive integer - the third argument',
-                            SkipFrames = 2)
+                                                                SkipFrames = 2)
 
 #classes
 
@@ -198,7 +198,7 @@ class WH_Coder:
         decode(Data):
             int OR float OR seq(int OR float) -> float OR list(float)
     
-    Version 1.0.0.0
+    Version 1.0.0.1
     """
     
     #special methods
@@ -225,10 +225,10 @@ class WH_Coder:
             UT_ValueError: any of the passed arguments is a negative integer or
                 zero
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
         _CheckSeed(s1, s2, s3)
-        self._objCodec = WH_Generator(s1, s2, s3)
+        self._Codec = WH_Generator(s1, s2, s3)
     
     #private helper methods
 
@@ -240,12 +240,12 @@ class WH_Coder:
         Signature:
             type A -> bool
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
-        bCond1 = isinstance(Data, c_abc.Sequence)
-        bCond2 = not isinstance(Data, str)
-        bCond3 = not isinstance(Data, bytes)
-        return bCond1 and bCond2 and bCond3
+        Cond1 = isinstance(Data, c_abc.Sequence)
+        Cond2 = not isinstance(Data, str)
+        Cond3 = not isinstance(Data, bytes)
+        return Cond1 and Cond2 and Cond3
     
     def _checkIfNumber(self, Data: Any) -> bool:
         """
@@ -255,11 +255,11 @@ class WH_Coder:
         Signature:
             type A -> bool
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
-        bCond1 = isinstance(Data, (int, float))
-        bCond2 = not isinstance(Data, bool)
-        return bCond1 and bCond2
+        Cond1 = isinstance(Data, (int, float))
+        Cond2 = not isinstance(Data, bool)
+        return Cond1 and Cond2
 
     #public API
 
@@ -281,10 +281,10 @@ class WH_Coder:
             UT_ValueError: any of the passed arguments is a negative integer or
                 zero
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
         _CheckSeed(s1, s2, s3)
-        self._objCodec.seed(s1, s2, s3)
+        self._Codec.seed(s1, s2, s3)
 
     def encode(self, Data: T_INPUT_TYPE) -> T_OUTPUT_TYPE:
         """
@@ -305,28 +305,26 @@ class WH_Coder:
             UT_TypeError: the input is neither int, nor float, nor sequence of
                 int or float
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
         if self._checkIfSequence(Data):
             Result = []
-            for iIndex, Item in enumerate(Data):
+            for Index, Item in enumerate(Data):
                 if self._checkIfNumber(Item):
-                    fCode = self._objCodec.getNumber()
-                    Result.append(Item / (fCode + 0.000001))
+                    Code = self._Codec.getNumber()
+                    Result.append(Item / (Code + 0.000001))
                     pass
                 else:
-                    objError = UT_TypeError(Item, (int, float), SkipFrames = 1)
-                    objError.args = (
-                                '{} - at position {} in the sequence'.format(
-                                                    objError.args[0], iIndex), )
-                    raise objError
+                    Error = UT_TypeError(Item, (int, float), SkipFrames = 1)
+                    Error.appendMessage(
+                                    f'- at position {Index} in the sequence' )
+                    raise Error
         elif self._checkIfNumber(Data):
-            fCode = self._objCodec.getNumber()
-            Result = Data / (fCode + 0.000001)
+            Code = self._Codec.getNumber()
+            Result = Data / (Code + 0.000001)
             pass
         else:
-            raise UT_TypeError(Data, (int, float, c_abc.Sequence),
-                                                                SkipFrames = 1)
+            raise UT_TypeError(Data, (int, float, c_abc.Sequence), SkipFrames=1)
         return Result
 
     def decode(self, Data: T_INPUT_TYPE) -> T_OUTPUT_TYPE:
@@ -347,25 +345,25 @@ class WH_Coder:
         Raises:
             UT_TypeError: the input is neither int, nor float, nor sequence of
                 int or float
+        
+        Version 1.0.0.1
         """
         if self._checkIfSequence(Data):
             Result = []
-            for iIndex, Item in enumerate(Data):
+            for Index, Item in enumerate(Data):
                 if self._checkIfNumber(Item):
-                    fCode = self._objCodec.getNumber()
-                    Result.append(Item * (fCode + 0.000001))
+                    Code = self._Codec.getNumber()
+                    Result.append(Item * (Code + 0.000001))
                     pass
                 else:
-                    objError = UT_TypeError(Item, (int, float), SkipFrames = 1)
-                    objError.args = (
-                                '{} - at position {} in the sequence'.format(
-                                                    objError.args[0], iIndex), )
-                    raise objError
+                    Error = UT_TypeError(Item, (int, float), SkipFrames = 1)
+                    Error.appendMessage(
+                                    f'- at position {Index} in the sequence')
+                    raise Error
         elif self._checkIfNumber(Data):
-            fCode = self._objCodec.getNumber()
-            Result = Data * (fCode + 0.000001)
+            Code = self._Codec.getNumber()
+            Result = Data * (Code + 0.000001)
             pass
         else:
-            raise UT_TypeError(Data, (int, float, c_abc.Sequence),
-                                                               SkipFrames = 1)
+            raise UT_TypeError(Data, (int, float, c_abc.Sequence), SkipFrames=1)
         return Result

@@ -63,9 +63,9 @@ Due to this design it is possible to implement the following modes of operation:
 
 Implementation of an indefinite, repetitive feeder based on a circular list, where one element at a time is returned with each call to the method *getElement*(), and all elements of the stored sequence are iterated in an indefinite looping with wrapping from the end to the beginning of the sequence.
 
-_**Instantitation**_
+***Instantitation***
 
-**\_\_init\_\_**(*seqData* = None)
+**\_\_init\_\_**(*Data* = None)
 
 *Signature*:
 
@@ -73,7 +73,7 @@ _**Instantitation**_
 
 *Args*:
 
-* *seqData*: (optional) **seq(type A)**; any sequence of any elements, the content to be stored, defaults to *None*, in which case the container is initially emtpy, and its content must be set explicitely before use
+* *Data*: (optional) **seq(type A)**; any sequence of any elements, the content to be stored, defaults to *None*, in which case the container is initially emtpy, and its content must be set explicitely before use
 
 *Raises*:
 
@@ -84,9 +84,9 @@ _**Instantitation**_
 
 Initializer. Sets the internal counter to zero. Optionally sets the content of the container, if a proper sequence type is passed.
 
-_**Methods**_
+***Methods***
 
-**setContent**(*seqData*)
+**setContent**(*Data*)
 
 *Signature*:
 
@@ -94,7 +94,7 @@ seq(type A) -> None
 
 *Args*:
 
-* *seqData*: **seq(type A)**; any sequence of any elements, the content to be stored
+* *Data*: **seq(type A)**; any sequence of any elements, the content to be stored
 
 *Raises*:
 
@@ -135,7 +135,7 @@ Implementation of a codec based on the extended (mod 256) Vigenere substituion a
 
 The internal index for the cyclic pass-phrase is never implicitely reset. Use the dedicated method explicitely or (re-) set the pass-phrase to reset the internal index. With this approach the codec is appropriate for the continuous data feed, e.g. for an input stream.
 
-_**Instantiation**_
+***Instantiation***
 
 **\_\_init\_\_**(*Password* = None)
 
@@ -155,7 +155,7 @@ _**Instantiation**_
 
 Initializer. If the optional *Password* argument is passed (and not None) the pass-phrase is also set. The passed string is converted into a bytestring using UTF-8 codec.
 
-_**Methods**_
+***Methods***
 
 **setPassword**(*Password*)
 

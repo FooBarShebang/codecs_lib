@@ -5,7 +5,7 @@
 !endif
 
 $singleton_class(COBS_Coder) {
-    - $static_method('_checkType', 'gData') : type A -> None
-    + $static_method('encode', 'bData') : bytes OR bytearray -> bytes
-    + $static_method('decode', 'bData') : bytes OR bytearray -> bytes
+    - $static_method('_checkType', 'Data') : type A -> None
+    + $static_method('encode', 'Data') : bytes OR bytearray -> bytes
+    + $static_method('decode', 'Data') : bytes OR bytearray -> bytes
 }

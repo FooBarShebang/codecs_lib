@@ -2,7 +2,7 @@
 
 ## Scope
 
-This document provides reference documentation on the module **codecs_lib.cobs**, which implements the Consistent Overhead Byte Stuffing encoding / decoding algorithm [[1-3]](#References). Intended functionality of the module, design and implementation details as well as API reference are provided.
+This document provides reference documentation on the module **codecs_lib.cobs**, which implements the Consistent Overhead Byte Stuffing encoding / decoding algorithm [[1-3]](#references). Intended functionality of the module, design and implementation details as well as API reference are provided.
 
 Covered functional components:
 
@@ -12,7 +12,7 @@ Covered functional components:
 
 The communication over serial port with the devices is often implemented in the binary mode using '\x00' (zero) characters as the package delimiters. Thus an arbitrary bytes sequence containg zeroes must be encoded before sending and decoded after sending such that the sent sequence itself does not contain zeroes, at least, un-escaped. The *C*onsistent *O*verhead *B*yte *S*tuffing encoding / decoding algorithm (COBS) allows reversible zeroes eliminiation without use of the escape sequences.
 
-The *encoding* algorithm is [[1]](#References):
+The *encoding* algorithm is [[1]](#references):
 
 * First append a zero byte to the tail, then break them into groups of either 254 non-zero bytes, or 0–253 non-zero bytes followed by a zero byte - thus the zero bytes serve as tail-delimiters of sub-sequences of non-zero bytes, which may be empty (zero length).
 * Encode each group by deleting the trailing zero byte (if any) and prepending the number of non-zero bytes, plus one. Thus, each encoded group is the same size as the original, except that 254 non-zero bytes are encoded into 255 bytes by prepending a byte of 255.
@@ -40,7 +40,7 @@ The *decoding* algorithm can be easier explained assuming the sequential byte-by
 * Repeat step 1 until the end of the stream / file is reached of the packet delimiter '\x00' is encountered
 * If the output sequence ends with zero (0, '\x00') - remove it
 
-The majority of the commonly available implementations of this algorithm are based on the byte-by-byte conversion of the input, e.g. as in the Python library in the PyPI depository [[2]](#References) or in the NodeJS module *cobs* used by the NodeJS implementation, see figures below.
+The majority of the commonly available implementations of this algorithm are based on the byte-by-byte conversion of the input, e.g. as in the Python library in the PyPI depository [[2]](#references) or in the NodeJS module *cobs* used by the NodeJS implementation, see figures below.
 
 ![NodeJS cobs encoding](../UML/cobs/cobs_encode.png)
 
@@ -69,7 +69,7 @@ The module implements a single class **COBS_Coder**, which has only two methods 
 
 ![Class diagram of the module](../UML/cobs/cobs_classes.png)
 
-Unlike the Python library in the PyPI depository [[2]](#References) or in the NodeJS module *cobs* this implementation is based on the slice indexing and strings splitting.
+Unlike the Python library in the PyPI depository [[2]](#references) or in the NodeJS module *cobs* this implementation is based on the slice indexing and strings splitting.
 
 The **encode()** method uses splitting in order to produce a sequence of non-zero bytes sequences (it is possible for a sub-sequence to be of the zero length), and slicing to split long non-zero sequence (> 254 characters). For each slice of the non-zero length its length + 1 is palced into the resulting string first, followed by the slice itself. Unless the length of the sub-string is 254 characters, or it is the last sub-string in the initial data string, the '\x01' (one) character is placed after it. The zero length sub-strings are represented by the '\x01' character, which happend in the case of zero ('\x00') being the first of the last character in the intial string, or two or more consecutive zeroes in the intial string. The produced sub-strings are copied as blocks, not in the byte-per-byte manner. See figure below for the details.
 
@@ -89,9 +89,9 @@ The both methods use the concatenation of the already accumulated data (as a byt
 
 Singleton-like class implementing Consistent Overhead Byte Stuffing (COBS) encoding / decoding algorithm disregarding the packet delimiting b'\x00' characters. All methods are class methods, thus the instantiation is not required, although it is possible.
 
-_**Class Methods**_
+***Class Methods***
 
-**encode**(*bData*)
+**encode**(*Data*)
 
 *Signature*:
 
@@ -113,7 +113,7 @@ bytes OR bytearray -> bytes
 
 Encodes a byte string using COBS algorithm. Note that the frame delimiter b'\x00' is not added!
 
-**decode**(*bData*)
+**decode**(*Data*)
 
 *Signature*:
 

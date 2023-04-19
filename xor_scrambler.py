@@ -8,8 +8,8 @@ Classes:
     XOR_Coder
 """
 
-__version__ = "1.0.0.0"
-__date__ = "30-06-2021"
+__version__ = "1.0.0.1"
+__date__ = "19-04-2023"
 __status__ = "Production"
 
 #imports
@@ -53,7 +53,7 @@ class XOR_Coder:
         decode(Data *, Encoding = None):
             bytes OR bytearray\, *, str OR None\ -> bytes OR str
     
-    Version 1.0.0.0
+    Version 1.0.0.1
     """
     
     #public API
@@ -84,32 +84,32 @@ class XOR_Coder:
             * UT_ValueError: Encoding is not a registered, OR registered but
                 improper codec - only if Data is a string
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
         if isinstance(Data, bytes):
-            baTemp = bytearray(Data)
+            Temp = bytearray(Data)
         elif isinstance(Data, bytearray):
-            baTemp = Data
+            Temp = Data
         elif isinstance(Data, str):
             if Encoding is None:
-                strEncoding = 'utf-8'
+                _Encoding = 'utf-8'
             elif not isinstance(Encoding, str):
                 raise UT_TypeError(Encoding, str, SkipFrames = 1)
             else:
-                strEncoding = Encoding
+                _Encoding = Encoding
             try:
-                bsTemp = Data.encode(strEncoding)
+                Temp = Data.encode(_Encoding)
             except LookupError:
                 raise UT_ValueError(Encoding,
                         'a registered Unicode codec', SkipFrames = 1) from None
             except ValueError:
                 raise UT_ValueError(Encoding,
                         'a suitable Unicode codec', SkipFrames = 1) from None
-            baTemp = bytearray(bsTemp)
+            Temp = bytearray(Temp)
         else:
             raise UT_TypeError(Data, (bytes, bytearray, str), SkipFrames = 1)
-        bsResult = bytes(Item ^ 255 for Item in baTemp)
-        return bsResult
+        Result = bytes(Item ^ 255 for Item in Temp)
+        return Result
     
     @classmethod
     def decode(cls, Data: TBytes, *,
@@ -138,15 +138,15 @@ class XOR_Coder:
             * UT_ValueError: Encoding is not a registered, OR registered but
                 improper codec
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
         if isinstance(Data, bytes):
-            baTemp = bytearray(Data)
+            Temp = bytearray(Data)
         elif isinstance(Data, bytearray):
-            baTemp = Data
+            Temp = Data
         else:
             raise UT_TypeError(Data, (bytes, bytearray), SkipFrames = 1)
-        Result = bytes(Item ^ 255 for Item in baTemp)
+        Result = bytes(Item ^ 255 for Item in Temp)
         if not (Encoding is None):
             if not isinstance(Encoding, str):
                 raise UT_TypeError(Encoding, str, SkipFrames = 1)

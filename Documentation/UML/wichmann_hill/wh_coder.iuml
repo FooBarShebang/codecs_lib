@@ -6,7 +6,7 @@
 
 class WH_Coder {
     ..Private fields..
-    - _objCodec: WH_Generator
+    - _Codec: WH_Generator
     __
     + __init__(s1=1, s2=1, s3=1): /int > 0/, int > 0/, int > 0/// -> None
     ..Private methods..

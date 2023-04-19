@@ -18,8 +18,8 @@ Classes:
     COBS_Coder
 """
 
-__version__ = "1.0.0.0"
-__date__ = "17-06-2021"
+__version__ = "1.0.0.1"
+__date__ = "19-04-2023"
 __status__ = "Production"
 
 #imports
@@ -55,18 +55,18 @@ class COBS_Coder:
     required, although it is possible.
     
     Class methods:
-        decode(bData):
+        decode(Data):
             bytes OR bytearray -> bytes
-        encode(bData):
+        encode(Data):
             bytes OR bytearray -> bytes
     
-    Version 1.0.0.0
+    Version 1.0.0.1
     """
 
     #private methods
 
     @classmethod
-    def _checkType(cls, gData: Any) -> None:
+    def _checkType(cls, Data: Any) -> None:
         """
         Helper 'private' method to check that the input for encoding or decoding
         methods is a byte-string or a bytes array and raise a sub-class of
@@ -78,21 +78,21 @@ class COBS_Coder:
             type A -> None
         
         Args:
-            gData: type A; the input of the encoding or decoding method to be
+            Data: type A; the input of the encoding or decoding method to be
                 checked
         
         Raises:
             UT_TypeError: input is neither byte-string nor bytes array
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
-        if not isinstance(gData, (bytes, bytearray)):
-            raise UT_TypeError(gData, (bytes, bytearray), SkipFrames = 2)
+        if not isinstance(Data, (bytes, bytearray)):
+            raise UT_TypeError(Data, (bytes, bytearray), SkipFrames = 2)
 
     #public API
 
     @classmethod
-    def encode(cls, bData: TByteString) -> bytes:
+    def encode(cls, Data: TByteString) -> bytes:
         """
         Encodes a byte string using COBS algorithm. Note that the frame
         delimiter b'\x00' is not added!
@@ -100,10 +100,10 @@ class COBS_Coder:
         Class method.
         
         Signature:
-            bstring -> bstring
+            bytes OR bytearray -> bytes
         
         Args:
-            bsInput: bytes or bytearray; data to be encoded
+            Data: bytes or bytearray; data to be encoded
         
         Returns:
             bytes: encoded byte-string
@@ -111,33 +111,36 @@ class COBS_Coder:
         Raises:
             UT_TypeError: input is neither byte-string nor bytes array
         
-        Version 1.0.0.0
+        Version 1.0.1.0
         """
-        cls._checkType(bData)
-        bslstBuffer = bytes(bData).split(b'\x00')
-        baTemp = bytearray()
-        iBigLen = len(bslstBuffer) - 1
-        for iBigIndex, bsTemp in enumerate(bslstBuffer):
-            iLen = len(bsTemp)
-            if not iLen:
-                baTemp.append(1)
+        BlockLength = 254
+        cls._checkType(Data)
+        Segments = bytes(Data).split(b'\x00')
+        Accumulator = bytearray()
+        StopIndex = len(Segments) - 1
+        for Index, Segment in enumerate(Segments):
+            Length = len(Segment)
+            if not Length:
+                Accumulator.append(1)
             else:
-                iParts = int(iLen / 254)
-                for iIndex in range(iParts):
-                    baTemp.append(255)
-                    baTemp.extend(bsTemp[iIndex * 254 : (iIndex + 1) * 254])
-                iRemainderLen = iLen - iParts * 254 + 1
-                if iRemainderLen != 1:
-                    baTemp.append(iRemainderLen)
-                    baTemp.extend(bsTemp[iParts * 254 : iLen])
-                elif iBigIndex < iBigLen: #package does not end with 254*(k>0)
+                NumberParts = int(Length / BlockLength)
+                BlocksLength = NumberParts * BlockLength
+                for PartNumber in range(NumberParts):
+                    Offset = PartNumber * BlockLength
+                    Accumulator.append(255)
+                    Accumulator.extend(Segment[Offset: Offset + BlockLength])
+                BytesLeft = Length -  BlocksLength + 1
+                if BytesLeft != 1:
+                    Accumulator.append(BytesLeft)
+                    Accumulator.extend(Segment[BlocksLength: ])
+                elif Index < StopIndex: #package does not end with 254*(k>0)
                     # non-zero bytes
-                    baTemp.append(1)
-        bsResult = bytes(baTemp)
-        return bsResult
+                    Accumulator.append(1)
+        Result = bytes(Accumulator)
+        return Result
 
     @classmethod
-    def decode(cls, bData: TByteString) -> bytes:
+    def decode(cls, Data: TByteString) -> bytes:
         """
         Decodes a byte string using COBS algorithm. Note that the leading and
         tailing delimiters b'\x00' are removed automatically!
@@ -148,7 +151,7 @@ class COBS_Coder:
             bytes OR bytearray -> bytes
         
         Args:
-            bData: bytes OR bytearray; data to be decoded
+            Data: bytes OR bytearray; data to be decoded
         
         Returns:
             bytes: decoded byte-string
@@ -158,24 +161,24 @@ class COBS_Coder:
                 the leading or tailing position
             UT_TypeError: input is neither byte-string nor bytes array
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
-        cls._checkType(bData)
-        bsBuffer = bytes(bData).strip(b'\x00')
-        if b'\x00' in bsBuffer:
-            strError = 'Zero character in the encoded string'
-            raise UT_ValueError(bData, strError, SkipFrames = 1)
-        baBuffer = bytearray(bsBuffer)
-        iIndex = 0
-        baResult = bytearray()
-        iLen = len(baBuffer)
-        while (iIndex < iLen):
-            iCode = baBuffer[iIndex]
-            iIndex += 1
-            if iCode > 1:
-                baResult.extend(bsBuffer[iIndex : iIndex + iCode - 1])
-                iIndex += iCode - 1
-            if (iCode < 255) and (iIndex < iLen):
-                baResult.append(0)
-        bsResult = bytes(baResult)
-        return bsResult
+        cls._checkType(Data)
+        Input = bytes(Data).strip(b'\x00')
+        if b'\x00' in Input:
+            ErrorMessage = 'Zero character in the encoded string'
+            raise UT_ValueError(Data, ErrorMessage, SkipFrames = 1)
+        Input = bytearray(Input)
+        Index = 0
+        Result = bytearray()
+        DataLength = len(Input)
+        while (Index < DataLength):
+            Code = Input[Index]
+            Index += 1
+            if Code > 1:
+                Result.extend(Input[Index : Index + Code - 1])
+                Index += Code - 1
+            if (Code < 255) and (Index < DataLength):
+                Result.append(0)
+        Result = bytes(Result)
+        return Result

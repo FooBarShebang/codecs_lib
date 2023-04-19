@@ -6,12 +6,12 @@
 
 class CircularList {
     ..Private fields..
-    - _iCounter : int = 0
-    - {field} _seqData : seq(type A) = None
+    - _Counter : int = 0
+    - {field} _Data : seq(type A) = None
     __
-    + __init__(seqData = None): /seq(type A)/ -> None
+    + __init__(Data = None): /seq(type A)/ -> None
     ..Public methods..
-    + setContent(seqData): seq(type A) -> None
+    + setContent(Data): seq(type A) -> None
     + resetCounter(): None -> None
     + getElement() : None -> type A
 }

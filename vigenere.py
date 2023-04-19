@@ -14,8 +14,8 @@ Classes:
     VigenereCoder
 """
 
-__version__ = "1.0.0.0"
-__date__ = "27-07-2021"
+__version__ = "1.0.0.1"
+__date__ = "19-04-2023"
 __status__ = "Production"
 
 #imports
@@ -64,12 +64,12 @@ class CircularList:
         getElement():
             None -> type A
     
-    Version 1.0.0.0
+    Version 1.0.0.1
     """
 
     #special methods
 
-    def __init__(self, seqData: Optional[Sequence[Any]] = None) -> None:
+    def __init__(self, Data: Optional[Sequence[Any]] = None) -> None:
         """
         Initializer. Sets the internal counter to zero. Optionally sets the
         content of the container, if a proper sequence type is passed.
@@ -78,7 +78,7 @@ class CircularList:
             /seq(type A)/ -> None
         
         Args:
-            seqData: (optional) seq(type A); any sequence of any elements, the
+            Data: (optional) seq(type A); any sequence of any elements, the
                 content to be stored, defaults to None, in which case the
                 container is initially emtpy, and its content must be set
                 explicitely before use
@@ -88,20 +88,20 @@ class CircularList:
                 sequence type
             UT_ValueError: the passed optional argument is an empty sequence
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
-        self._iCounter = 0
-        self._seqData = None
-        if not (seqData is None):
-            if not isinstance(seqData, c_abc.Sequence):
-                raise UT_TypeError(seqData, c_abc.Sequence, SkipFrames = 1)
-            if not len(seqData):
-                raise UT_ValueError(seqData, 'not empty sequence', SkipFrames=1)
-            self.setContent(seqData)
+        self._Counter = 0
+        self._Data = None
+        if not (Data is None):
+            if not isinstance(Data, c_abc.Sequence):
+                raise UT_TypeError(Data, c_abc.Sequence, SkipFrames = 1)
+            if not len(Data):
+                raise UT_ValueError(Data, 'not empty sequence', SkipFrames = 1)
+            self.setContent(Data)
 
     #public API
 
-    def setContent(self, seqData: Sequence[Any]) -> None:
+    def setContent(self, Data: Sequence[Any]) -> None:
         """
         Copies and stores the passed sequence content into the internal buffer
         to be used as the data feed source.
@@ -110,19 +110,21 @@ class CircularList:
             seq(type A) -> None
         
         Args:
-            seqData: seq(type A); any sequence of any elements, the content to
-                be stored
+            Data: seq(type A); any sequence of any elements, the content to be
+                stored
         
         Raises:
             UT_TypeError: the argument is not a sequence type
             UT_ValueError: the argument is an empty sequence
+        
+        Version 1.0.0.1
         """
-        if not isinstance(seqData, c_abc.Sequence):
-            raise UT_TypeError(seqData, c_abc.Sequence, SkipFrames = 1)
-        if not len(seqData):
-            raise UT_ValueError(seqData, 'not empty sequence', SkipFrames = 1)
-        self._seqData = copy.deepcopy(seqData)
-        self._iCounter = 0
+        if not isinstance(Data, c_abc.Sequence):
+            raise UT_TypeError(Data, c_abc.Sequence, SkipFrames = 1)
+        if not len(Data):
+            raise UT_ValueError(Data, 'not empty sequence', SkipFrames = 1)
+        self._Data = copy.deepcopy(Data)
+        self._Counter = 0
 
     def resetCounter(self) -> None:
         """
@@ -131,9 +133,9 @@ class CircularList:
         Signature:
             None -> None
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
-        self._iCounter = 0
+        self._Counter = 0
 
     def getElement(self) -> Any:
         """
@@ -147,15 +149,15 @@ class CircularList:
         Raises:
             UT_Exception: the stored content is not yet set
 
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
-        if self._seqData is None:
+        if self._Data is None:
             raise UT_Exception('content is not yet set', SkipFrames = 1)
-        gElement = self._seqData[self._iCounter]
-        self._iCounter += 1
-        if self._iCounter == len(self._seqData):
-            self._iCounter = 0
-        return gElement
+        Element = self._Data[self._Counter]
+        self._Counter += 1
+        if self._Counter == len(self._Data):
+            self._Counter = 0
+        return Element
 
 class VigenereCoder:
     """
@@ -181,7 +183,7 @@ class VigenereCoder:
         decode(Data, *, Codec):
             bytes OR bytearray/, *, str OR None/ -> str
     
-    Version 1.0.0.0
+    Version 1.0.0.1
     """
     
     #special methods
@@ -204,9 +206,9 @@ class VigenereCoder:
             UT_TypeError: the passed argument is neither string, nor bytes
                 array, nor bytestring, nor None
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
-        self._objCodec = None
+        self._Codec = None
         if not (Password is None):
             self._checkPassword(Password)
             self.setPassword(Password)
@@ -250,7 +252,7 @@ class VigenereCoder:
             UT_TypeError: the passed argument is neither string, nor bytes
                 array, nor bytestring
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
         self._checkPassword(Password)
         if isinstance(Password, bytearray):
@@ -259,10 +261,10 @@ class VigenereCoder:
             PassPhrase = bytearray(Password)
         else:
             PassPhrase = bytearray(Password, 'utf_8')
-        if self._objCodec is None:
-            self._objCodec = CircularList(PassPhrase)
+        if self._Codec is None:
+            self._Codec = CircularList(PassPhrase)
         else:
-            self._objCodec.setContent(PassPhrase)
+            self._Codec.setContent(PassPhrase)
 
     def resetIndex(self) -> None:
         """
@@ -271,10 +273,10 @@ class VigenereCoder:
         Signature:
             None -> None
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
-        if not (self._objCodec is None):
-            self._objCodec.resetCounter()
+        if not (self._Codec is None):
+            self._Codec.resetCounter()
 
     def encode(self, Data: str, *, Codec: Optional[str] = None) -> bytes:
         """
@@ -301,9 +303,9 @@ class VigenereCoder:
                 incompatible with the passed data string
             UT_Exception: the pass-phrase is not set yet
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
-        if self._objCodec is None:
+        if self._Codec is None:
             raise UT_Exception('Pass-phrase is not set yet', SkipFrames = 1)
         if not isinstance(Data, str):
             raise UT_TypeError(Data, str, SkipFrames = 1)
@@ -314,16 +316,16 @@ class VigenereCoder:
                 raise UT_TypeError(Codec, str, SkipFrames = 1)
             _Codec = Codec
         try:
-            InData = bytearray(Data, _Codec)
+            InputData = bytearray(Data, _Codec)
         except LookupError:
             raise UT_ValueError(_Codec,
                         'a registered Unicode codec', SkipFrames = 1) from None
         except ValueError:
             raise UT_ValueError(_Codec,
                         'a suitable Unicode codec', SkipFrames = 1) from None
-        OutData = bytes(bytearray((InByte + self._objCodec.getElement()) % 256 
-                                                        for InByte in InData))
-        return OutData
+        OutputData = bytes(bytearray((NextByte + self._Codec.getElement()) % 256 
+                                                    for NextByte in InputData))
+        return OutputData
 
     def decode(self, Data: T_BYTES, *, Codec: Optional[str] = None) -> str:
         """
@@ -350,9 +352,9 @@ class VigenereCoder:
                 incompatible with the Vigenere decoded bytestring
             UT_Exception: the pass-phrase is not set yet
         
-        Version 1.0.0.0
+        Version 1.0.0.1
         """
-        if self._objCodec is None:
+        if self._Codec is None:
             raise UT_Exception('Pass-phrase is not set yet', SkipFrames = 1)
         if not isinstance(Data, (bytes, bytearray)):
             raise UT_TypeError(Data, (bytes, bytearray), SkipFrames = 1)
@@ -363,16 +365,16 @@ class VigenereCoder:
                 raise UT_TypeError(Codec, str, SkipFrames = 1)
             _Codec = Codec
         if isinstance(Data, bytearray):
-            InData = Data
+            InputData = Data
         else:
-            InData = bytearray(Data)
+            InputData = bytearray(Data)
         try:
-         OutData = bytearray((InByte - self._objCodec.getElement()) % 256 
-                                            for InByte in InData).decode(_Codec)
+         OutputData = bytearray((NextByte - self._Codec.getElement()) % 256 
+                                    for NextByte in InputData).decode(_Codec)
         except LookupError:
             raise UT_ValueError(_Codec,
                         'a registered Unicode codec', SkipFrames = 1) from None
         except ValueError:
             raise UT_ValueError(_Codec,
                         'a suitable Unicode codec', SkipFrames = 1) from None
-        return OutData
+        return OutputData
