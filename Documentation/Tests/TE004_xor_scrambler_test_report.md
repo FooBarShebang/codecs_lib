@@ -147,14 +147,14 @@ Each time the **ValueError** or its sub-class must be raised. **N.B.** implement
 
 For traceability the relation between tests and requirements is summarized in the table below:
 
-| **Requirement ID** | **Covered in test(s)** | **Verified \[YES/NO\]**) |
-| :----------------- | :--------------------- | :----------------------- |
-| REQ-FUN-400        | TEST-A-400             | YES                      |
-| REQ-FUN-401        | TEST-T-400, TEST-T-401 | YES                      |
-| REQ-FUN-410        | TEST-T-400             | YES                      |
-| REQ-FUN-420        | TEST-T-401             | YES                      |
-| REQ-AWM-400        | TEST-T-402             | YES                      |
-| REQ-AWM-401        | TEST-T-403             | YES                      |
+| **Requirement ID** | **Covered in test(s)** | **Verified \[YES/NO\]** |
+| :----------------- | :--------------------- | :---------------------- |
+| REQ-FUN-400        | TEST-A-400             | YES                     |
+| REQ-FUN-401        | TEST-T-400, TEST-T-401 | YES                     |
+| REQ-FUN-410        | TEST-T-400             | YES                     |
+| REQ-FUN-420        | TEST-T-401             | YES                     |
+| REQ-AWM-400        | TEST-T-402             | YES                     |
+| REQ-AWM-401        | TEST-T-403             | YES                     |
 
 | **Software ready for production \[YES/NO\]** | **Rationale**        |
 | :------------------------------------------: | :------------------- |

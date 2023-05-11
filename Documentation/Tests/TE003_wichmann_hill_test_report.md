@@ -250,7 +250,7 @@ Implement the Wichmann-Hill alogorithm in a spreadsheet and generate the expecte
 
 **Expected result:** A sub-class of **TypeError** is raised with each improper call.
 
-**Test steps:** 
+**Test steps:** perform the following
 
 * For each of the defined 'bad seed type' values try to instantiate the coder class as:
   * Using this value as the single argument
@@ -342,17 +342,17 @@ Implement the Wichmann-Hill alogorithm in a spreadsheet and generate the expecte
 
 For traceability the relation between tests and requirements is summarized in the table below:
 
-| **Requirement ID** | **Covered in test(s)** | **Verified \[YES/NO\]**) |
-| :----------------- | :--------------------- | :----------------------- |
-| REQ-FUN-300        | TEST-A-300             | YES                      |
-| REQ-FUN-301        | TEST-A-300             | YES                      |
-| REQ-FUN-302        | TEST-T-300             | YES                      |
-| REQ-FUN-310        | TEST-T-310             | YES                      |
-| REQ-FUN-320        | TEST-T-320             | YES                      |
-| REQ-FUN-321        | TEST-T-321             | YES                      |
-| REQ-AWM-300        | TEST-T-311, TEST-T-322 | YES                      |
-| REQ-AWM-301        | TEST-T-312, TEST-T-323 | YES                      |
-| REQ-AWM-320        | TEST-T-324             | YES                      |
+| **Requirement ID** | **Covered in test(s)** | **Verified \[YES/NO\]** |
+| :----------------- | :--------------------- | :---------------------- |
+| REQ-FUN-300        | TEST-A-300             | YES                     |
+| REQ-FUN-301        | TEST-A-300             | YES                     |
+| REQ-FUN-302        | TEST-T-300             | YES                     |
+| REQ-FUN-310        | TEST-T-310             | YES                     |
+| REQ-FUN-320        | TEST-T-320             | YES                     |
+| REQ-FUN-321        | TEST-T-321             | YES                     |
+| REQ-AWM-300        | TEST-T-311, TEST-T-322 | YES                     |
+| REQ-AWM-301        | TEST-T-312, TEST-T-323 | YES                     |
+| REQ-AWM-320        | TEST-T-324             | YES                     |
 
 | **Software ready for production \[YES/NO\]** | **Rationale**        |
 | :------------------------------------------: | :------------------- |

@@ -131,14 +131,14 @@ The verification method for a requirement is given by a single letter according 
 
 For traceability the relation between tests and requirements is summarized in the table below:
 
-| **Requirement ID** | **Covered in test(s)** | **Verified \[YES/NO\]**) |
-| :----------------- | :--------------------- | :----------------------- |
-| REQ-FUN-100        | TEST-A-100             | YES                      |
-| REQ-FUN-101        | TEST-T-100, TEST-T-101 | YES                      |
-| REQ-FUN-110        | TEST-T-100             | YES                      |
-| REQ-FUN-120        | TEST-T-101, TEST-T-120 | YES                      |
-| REQ-AWM-100        | TEST-T-102             | YES                      |
-| REQ-AWM-120        | TEST-T-121             | YES                      |
+| **Requirement ID** | **Covered in test(s)** | **Verified \[YES/NO\]** |
+| :----------------- | :--------------------- | :---------------------- |
+| REQ-FUN-100        | TEST-A-100             | YES                     |
+| REQ-FUN-101        | TEST-T-100, TEST-T-101 | YES                     |
+| REQ-FUN-110        | TEST-T-100             | YES                     |
+| REQ-FUN-120        | TEST-T-101, TEST-T-120 | YES                     |
+| REQ-AWM-100        | TEST-T-102             | YES                     |
+| REQ-AWM-120        | TEST-T-121             | YES                     |
 
 | **Software ready for production \[YES/NO\]** | **Rationale**        |
 | :------------------------------------------: | :------------------- |

@@ -95,7 +95,7 @@ In this variant, mathematically, all seed values *s1*, *s2* and *s3* are always 
 
 **Title:** Data decoding algorithm
 
-**Description:** Each received number (as a single number argument, or as an element of a sequence) should decoded as follows: *InData* -> *OutData* : *OutData* = *InData* * (*PRN* + 1.0E-6), where *PRN* is a pseudo-random number obtained for each new number to be processed.
+**Description:** Each received number (as a single number argument, or as an element of a sequence) should decoded as follows: *InData* -> *OutData* : *OutData* = *InData* \* (*PRN* + 1.0E-6), where *PRN* is a pseudo-random number obtained for each new number to be processed.
 
 **Verification Method:** T
 

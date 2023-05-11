@@ -6,4 +6,4 @@ This library  requires the Python 3, specifically version >= 3.6.
 
 ### Other own libraries
 
-* [introspection_lib](https://github.com/FooBarShebang/introspection_lib)
+* [introspection_lib](https://github.com/FooBarShebang/introspection_lib) >= v0.5
